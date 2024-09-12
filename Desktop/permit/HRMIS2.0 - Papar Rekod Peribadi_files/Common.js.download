@@ -1,0 +1,412 @@
+﻿// JScript File
+
+//document.addEventListener("contextmenu", function (e) {
+//    e.preventDefault();
+//}, false);
+
+document.addEventListener('DOMContentLoaded', function () {
+    //linkLoader('/HRMISNET/common/main/stylesheet/jquery-ui-1.8.21.custom.css');
+	
+	var targetASP = location.href;
+	
+	var PMPage = false;
+    if (targetASP.toUpperCase().indexOf("/HRMISNET/PM/") >= 0) {
+        PMPage = true;
+    }
+	
+	if (PMPage) {
+		if (targetASP.toLowerCase().indexOf("/treeview/") < 0) {
+			scriptLoader('/HRMISNET/Common/jscript/jquery-1.10.2.min.js');
+		}
+		//scriptLoader('/HRMISNET/Common/jscript/jquery-1.10.2.min.js');
+		scriptLoader('/HRMISNET/Common/jscript/jquery-idleTimeout-iframes.min.js');
+		scriptLoader('/HRMISNET/Common/jscript/store.min.js');
+		scriptLoader('/HRMISNET/Common/jscript/jquery/ui/jquery-ui.min.js');
+		scriptLoader('/HRMISNET/Common/Main/javascript/setting-timeout.js');
+	}
+}, false);
+
+
+var openWins = new Array();
+var curWin = 0;
+// window.focus();
+
+setInterval(closedfunc, 600000); //check parent if exist and closed if not found
+
+function scriptLoader(path, callback) {
+    var script = document.createElement('script');
+    script.type = "text/javascript";
+    script.async = true;
+    script.src = path;
+    script.onload = function () {
+        if (typeof (callback) == "function") {
+            callback();
+        }
+    }
+    try {
+        var scriptOne = document.getElementsByTagName('script')[0];
+        scriptOne.parentNode.insertBefore(script, scriptOne);
+    }
+    catch (e) {
+        document.getElementsByTagName("head")[0].appendChild(script);
+    }
+}
+
+function closedfunc()
+{
+    var objwind;
+    try
+    {
+        objwind = top.opener;
+        if (objwind !== "undefined")
+        {
+            if (objwind !== null)
+            {
+                if (objwind.closed)
+                {
+                    window.close();
+                    parent.window.close();
+                }
+            }
+        }
+    }
+    catch (e) { }
+}
+
+function ReFormatDateToSQL(datevalue) {
+    var datev;
+    var dt;
+    if ((datevalue.length > 0)) {
+        datev = datevalue.split("/");
+        dt = (datev[2] + "/" + datev[1] + "/" + datev[0]);
+    }
+    else {
+        dt = "";
+    }
+    return dt;
+}
+
+function window_onfocus()
+{
+    window.focus();
+}
+
+function getScrollBottom(p_oElem)
+{
+    return p_oElem.scrollHeight - p_oElem.scrollTop - p_oElem.clientHeight;
+}
+
+function CheckDuplicate(valToCheck)
+{
+    //__doPostBack("<DUPLICATE>",valToCheck);     
+}
+
+function JavaScToVBScWrapper(val)
+{
+    return PromptMessage(val);
+}
+
+function setHourglass()
+{
+    document.body.style.cursor = 'wait';
+}
+
+function maximizeWindow()
+{
+    if (window.screen)
+    {
+        var noError = true;
+
+        try
+        {
+            this.moveTo(0, 0);
+        }
+        catch (e)
+        {
+            noError = false;
+        }
+        if (noError)
+        {
+            this.resizeTo(screen.availWidth, screen.availHeight);
+        }
+    }
+}
+
+function openWin(page, target, style)
+{
+    openWins[curWin++] = window.open(page, target, style);
+}
+
+function ResumeOnError()
+{
+    return true;
+}
+function closeAll()
+{
+    window.onerror = ResumeOnError;
+    for (i = 0; i < openWins.length; i++)
+        if (openWins[i] && !openWins[i].closed)
+            openWins[i].close();
+}
+
+var idClick;
+
+function _click(id)
+{
+    var alst = document.getElementsByTagName("A");
+
+    for (var i = 0; i < alst.length; i++)
+    {
+        if (alst[i].id != id)
+        {
+            document.getElementById(alst[i].id).style.fontWeight = "normal";
+            document.getElementById(alst[i].id).style.color = "white";
+        }
+    }
+
+    document.getElementById(id).style.color = "yellow";
+    document.getElementById(id).style.fontWeight = "bold";
+    idClick = id;
+}
+
+function mOut(id)
+{
+
+    var alst = document.getElementsByTagName("a");
+
+    for (var i = 0; i < alst.length; i++)
+    {
+        if (alst[i].id != idClick)
+        {
+            document.getElementById(alst[i].id).style.fontWeight = "normal";
+            document.getElementById(alst[i].id).style.color = "white";
+        }
+    }
+}
+
+function textCounter(field, countfield, maxlimit)
+{
+    if (field.value.length > maxlimit) // if too long...trim it!
+        field.value = field.value.substring(0, maxlimit);
+    // otherwise, update 'characters left' counter
+    //else
+    //countfield.value = maxlimit - field.value.length;
+}
+function textAreaMaxLength(field, maxlimit)
+{
+    if (field.value.length > maxlimit) // if too long...trim it!
+        field.value = field.value.substring(0, maxlimit);
+}
+
+function cbfSubmitLink(fileName, target, isFrame)
+{
+    if (isFrame === true)
+    {
+        parent.frames["" + target + ""].location.href = fileName;
+    }
+    else if (isFrame === false)
+    {
+        target.location.href = fileName;
+    }
+}
+//-------------------------------------------------------------------------
+function check_date(field)
+{
+    var checkstr = "0123456789/.-";
+    var DateField = field;
+    var Datevalue = "";
+    var DateTemp = "";
+    var seperator = "/";
+    var ArrSep = "/.-";
+    var day;
+    var month;
+    var year;
+    var leap = 0;
+    var err = 0;
+    var i;
+    var tmpSplitter = "";
+
+    err = 0;
+    DateValue = DateField.value;
+
+    if (DateValue.length === 0) return false;
+
+    /* Delete all chars except 0..9 */
+    for (i = 0; i < DateValue.length; i++)
+    {
+        if (checkstr.indexOf(DateValue.substr(i, 1)) >= 0)
+        {
+            DateTemp = DateTemp + DateValue.substr(i, 1);
+        }
+    }
+    DateValue = DateTemp;
+    DateField.value = DateValue;
+
+    // to determine which splitter to be used...
+    for (i = 0; i < DateValue.length; i++)
+    {
+        if (ArrSep.indexOf(DateValue.substr(i, 1)) >= 0)
+        {
+            tmpSplitter = tmpSplitter + DateValue.substr(i, 1);
+        }
+    }
+
+    if (tmpSplitter != "//" && tmpSplitter != ".." && tmpSplitter != "--")
+    {
+        WrongDtFormat();
+        DateField.value = "";
+        return false;
+    }
+
+    var Splitter = "";
+    Splitter = tmpSplitter.substr( 1);
+
+    var SplitDate;
+    SplitDate = DateValue.split(Splitter);
+    day = SplitDate[0];
+    month = SplitDate[1];
+    year = SplitDate[2];
+
+    if (Number(day) > 31)
+    {
+        WrongDtFormat();
+        DateField.value = "";
+        return false;
+    }
+    else
+    {
+        if (Number(day) < 10)
+        { day = "0" + Number(day); }
+        else { day = Number(day); }
+    }
+
+    if (Number(month) > 12)
+    {
+        WrongDtFormat();
+        DateField.value = "";
+        return false;
+    }
+    else
+    {
+        if (Number(month) < 10)
+        { month = "0" + Number(month); }
+        else { month = Number(month); }
+    }
+
+    if (year.length != 2 && year.length != 4)
+    {
+        WrongDtFormat();
+        DateField.value = "";
+        return false;
+    }
+    else
+    {
+        if (year.length == 2)
+        {
+            year = "20" + year;
+        }
+    }
+
+    DateValue = day + '/' + month + '/' + year;
+    DateField.value = DateValue;
+
+    checkstr = "0123456789";
+    DateTemp = "";
+
+    /* Delete all chars except 0..9 */
+    for (i = 0; i < DateValue.length; i++)
+    {
+        if (checkstr.indexOf(DateValue.substr(i, 1)) >= 0)
+        {
+            DateTemp = DateTemp + DateValue.substr(i, 1);
+        }
+    }
+
+    DateValue = DateTemp;
+    /* Always change date to 8 digits - string*/
+    /* if year is entered as 2-digit / always assume 20xx */
+    if (DateValue.length === 6)
+    {
+        DateValue = DateValue.substr(0, 4) + '20' + DateValue.substr(4, 2);
+    }
+    if (DateValue.length != 8)
+    {
+        err = 19;
+    }
+    /* year is wrong if year = 0000 */
+    year = DateValue.substr(4, 4);
+    if (year === 0)
+    {
+        err = 20;
+    }
+    /* Validation of month*/
+    month = DateValue.substr(2, 2);
+    if ((month < 1) || (month > 12))
+    {
+        err = 21;
+    }
+    /* Validation of day*/
+    day = DateValue.substr(0, 2);
+    if (day < 1)
+    {
+        err = 22;
+    }
+    /* Validation leap-year / february / day */
+    if ((year % 4 === 0) || (year % 100 === 0) || (year % 400 === 0))
+    {
+        leap = 1;
+    }
+    if ((month === 2) && (leap === 1) && (day > 29))
+    {
+        err = 23;
+    }
+    if ((month === 2) && (leap !== 1) && (day > 28))
+    {
+        err = 24;
+    }
+    /* Validation of other months */
+    if ((day > 31) && ((month === "01") || (month === "03") || (month === "05") || (month == "07") || (month == "08") || (month == "10") || (month == "12")))
+    {
+        err = 25;
+    }
+    if ((day > 30) && ((month === "04") || (month === "06") || (month === "09") || (month == "11")))
+    {
+        err = 26;
+    }
+    /* if 00 ist entered, no error, deleting the entry */
+    if ((day === 0) && (month === 0) && (year === 0))
+    {
+        err = 0; day = ""; month = ""; year = ""; seperator = "";
+    }
+    /* if no error, write the completed date to Input-Field (e.g. 13.12.2001) */
+    if (err === 0)
+    {
+        DateField.value = day + seperator + month + seperator + year;
+    }
+        /* Error-message if err != 0 */
+    else
+    {
+        //alert("Format Tarikh Salah!");
+        WrongDtFormat();
+        DateField.select();
+        DateField.focus();
+    }
+}
+
+//------------------------------------------------------------------------
+//added by Mus: 4/4/08
+//to hide status bar from displaying link whenever rollover the button or hyperlink
+
+function hidestatus()
+{
+    window.status = '';
+   
+    if (document.layers)
+    {
+        document.captureEvents(Event.MOUSEOVER | Event.MOUSEOUT | Event.MOUSEOUT);
+        document.onmouseover = hidestatus;
+        document.onmouseout = hidestatus;
+    }
+    return true;
+    
+}

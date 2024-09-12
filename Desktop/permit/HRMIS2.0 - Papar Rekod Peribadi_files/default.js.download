@@ -1,0 +1,146 @@
+﻿var urlLogoff = "/HRMISNET/Common/Login/SessionExpired.aspx";
+var App = {
+    /*
+    Author: abi.dzar@ibnjaafar.com
+    Since: 2013
+    It accepts JSON Object and Target Element for rendering the menus.
+    It renders the List in targetElement
+
+    JSON Object will be transformed into List based on Parent And Child Modules.
+    Format of each element ID is:
+    "12"   - Root parent
+    "1201" - Child of "12"
+    "1202" - Child of "1202" and Parent for the next element
+    "120201" - Child of "1202"
+    "120202" - Child of "1202"
+    "1203"   - Child of "12"
+    The Rule of this format are: 
+    - Child element ID should be prepended by Parent Element ID
+    - AND JSON Array must be sorted based on the ID of the elements. 
+
+    Rendering is done by:
+    1- Render root parent. 
+    2- Append child as List Node of the parent by identifying the parent from it's substring
+    3- Sort the elements according to Seq number 
+    4- Remove Menus that has no child from the list
+    */
+    drawMenusHierarchy: function (selectorElement, jSONArray) {
+        var treeLevel = 0;
+        $.each(jSONArray.menus, function (key, menu) {
+            var value = menu.id;
+            var name = menu.name;
+            var seq = menu.seq;
+            var url = "Default.aspx?id=" + value;
+            if (value.length <= 2) {
+                url = "#"
+            }
+            menu.id.trim() == "0101" && (urlLogoff = "https://od.eghrmis.gov.my/hrmis-account/logoff");
+            //ListElement contains sequence data.
+            var listElement =
+                "<li id='" + selectorElement + value + "' data-seq='" + seq + "' data-id='" + value + "'>" +
+                "<a href='" + url + "' >" + name + "</a>" +
+                "</li>";
+
+            //Set Selector element as Root parent
+            var parentSelector = "#" + selectorElement + value;
+            if (value.length > 2) {
+                //If the Id length is more than 2, means, it is a child of some parent. Thus, get the parent
+                parentSelector = "#" + selectorElement + value.substring(0, value.length - 2)
+            }
+
+
+            //Render Them!
+            //Find the parent. If not exist, render it as a parent. All roots must go here
+            if ($(parentSelector).length == 0) {
+                $("#" + selectorElement).append(listElement);
+            } else {
+                // If parent is found, append <span> tag to it. Since only parent which has child will have arrow
+                if ($(parentSelector).has("span").length == 0) {
+                    $(parentSelector + " > a").wrap("<span></span>");  //Wrap span only once for the arrow
+                }
+
+                // If Parent doesn't have UL, append UL. otherwise, use the previous generated UL
+                if ($(parentSelector).has("ul").length == 0) {
+                    $(parentSelector).append("<ul class=''></ul>")    //Append UL as container for the child LI
+                }
+                $(parentSelector + "> ul").append(listElement);
+            }
+
+        });
+
+        // Sort the Root elements
+        App.sortListBasedOnSequenceNumber($("#" + selectorElement))
+
+        //Find all LI element and sort it's UL children if found
+        $.each($("#" + selectorElement).find("li"), function (key, val) {
+            if ($(val).has("ul").length > 0) {
+                App.sortListBasedOnSequenceNumber($(val).children("ul"));
+            }
+        });
+
+
+        // Filter out root Menus which doesn't have child
+        // Only happen to Menus, not Functions
+        $("#" + selectorElement).children("li").each(function (key, val) {
+            if ($(val).attr("data-id") && $(val).attr("data-id").length == 2) {
+                // If no li found, remove the element
+                if ($(val).find('li').length == 0) {
+                    $(val).remove()
+                }
+            }
+        });
+
+    },
+
+    sortListBasedOnSequenceNumber: function (unorderedListElement) {
+        var listElements = unorderedListElement.children('li')
+        listElements.sort(function (a, b) {
+            if (parseInt($(a).attr('data-seq')) > parseInt($(b).attr('data-seq')))
+                return 1;
+            else return -1;
+        });
+        $(unorderedListElement).empty().html(listElements);
+    }
+    ,
+    listenToClickOff: function () {
+
+        $("#off").click(function () {
+            if (confirm("Adakah Anda Pasti Untuk Keluar?")) {
+                $.get("/HRMISNET/Common/Login/SessionExpired.aspx", function (data) {
+                    window.location.href = "/HRMISNET/Common/Main/Login.aspx"
+                });
+            }
+        });
+    },
+
+    init: function () {
+
+        this.drawMenusHierarchy("functionsList", $.parseJSON($("#functionsMultiDimentionalArray").val()));
+        if ($("#modulesMultiDimentionalArray").val().length > 0) {
+            this.drawMenusHierarchy("modulesList", $.parseJSON($("#modulesMultiDimentionalArray").val()));
+        }
+        //align left menu if exceed certain amount
+        $('#css3menu1 ul ul').each(function () {
+            if ($(this).children().length > 13 && $(this).children().find("span").length == 0) {
+                $(this).addClass("forceMaxHeight")
+            }
+        });
+        //force known menu that exceed screen 
+        $('#functionsList090114 ul').each(function () {
+            if ($(this).children().length > 13) {
+                $(this).addClass("forceUp")
+            }
+        });
+        //Add module title
+        $('ul#modulesList').prepend('<li class="menuTitle"><a>MODUL</a></li>');
+        //Add submodule title
+        $('ul#modulesList ul').prepend('<li class="menuTitle"><a>SUBMODUL</a></li>');
+
+        this.listenToClickOff();
+
+    }
+}
+
+$(window).load(function () {
+    App.init();
+});

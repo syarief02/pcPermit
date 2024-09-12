@@ -1,0 +1,81 @@
+﻿
+//un On Load
+$(window).load(function () {
+    var eventList = 'click keyup keypress scroll wheel mousewheel mousemove '; // separate each event with a space
+
+    var urlRedirect = '';
+    var flagpage = "0";
+    var filename = location.href.substr(location.href.lastIndexOf("/") + 1);
+    filename = filename.split('?');
+
+    if (filename[0] == "Default.aspx" || filename[0] == "Landing.aspx") {
+        flagpage = "1";
+        urlRedirect = '/HRMISNET/Common/Main/Login.aspx';
+    } else if (filename[0] == "50901020ViewMaintainIndPlan.aspx" || filename[0] == "50901020ViewMaintainIndPlanPPP.aspx") {
+        flagpage = "3";
+    }
+
+    if (window.opener) {
+        flagpage = "3";
+    }
+
+    $("<link/>", {
+        rel: "stylesheet",
+        type: "text/css",
+        href: "/HRMISNET/common/main/stylesheet/jquery-ui-1.8.21.custom.css"
+    }).appendTo("head");
+
+
+    $(document).idleTimeout({
+
+        idleTimeLimit: timeout(flagpage),            // 15 seconds 'No activity' time limit in seconds.
+        redirectUrl: urlRedirect,       // redirect to this url
+        idleCheckHeartbeat: 2, // Frequency to check for idle timeouts in seconds
+        customCallback: function () {    // define optional custom js function
+            $.get("/HRMISNET/Common/Login/SessionExpired.aspx", function (data) {
+                if (flagpage == "1") {
+                    window.top.location.href = urlRedirect;
+                } else {
+                    window.close();
+                }
+            });
+        },
+        activityEvents: eventList,    // separate each event with a space  
+
+        // warning dialog box configuration
+        enableDialog: enableDialog(flagpage),        // set to false for logout without warning dialog
+        //enableDialog: true,      
+		dialogDisplayLimit: 30,   // time to display the warning dialog before logout (and optional callback) in seconds. 180 = 3 Minutes
+        dialogTitle: 'Sesi Telah Tamat',
+        dialogText: 'Disebabkan anda tidak aktif, sesi anda akan tamat sebentar lagi. Untuk kekal aktif, sila simpan semua transaksi anda.',
+        dialogTimeRemaining: 'Masa Yang Tinggal',
+        dialogStayLoggedInButton: 'Kekal Log Masuk ',
+        dialogLogOutNowButton: 'Log Keluar',
+        multipleTabs: true,
+        triggerAll: true,
+
+        //        errorAlertMessage: 'Aplikasi HRMIS 2.0 hanya sesuai diakses menggunakan pelayar IE versi 10 dan ke atas, versi terkini bagi pelayar Google Chrome, Mozilla Firefox dan Safari.' +
+        //                'Sekiranya anda menggunakan pelayar IE versi 10 dan ke atas, sila Remove url www.eghrmis.gov.my di Tools > Compatibility View Settings.',
+
+        sessionKeepAliveUrl: '/KeepAlive.aspx',
+        sessionKeepAliveTimer: 600
+    });
+});
+
+function timeout(flagpage) {
+
+    if (flagpage == "1" || flagpage == "3") {
+        return 1800;
+    } else {
+        return 1830; //+30 for delay enable dialog
+    }
+}
+
+function enableDialog(flagpage) {
+
+    if (flagpage == "1" || flagpage == "3") {
+        return true;
+    } else {
+        return false;
+    }
+}

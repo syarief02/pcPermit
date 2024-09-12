@@ -1,0 +1,977 @@
+BODY
+{
+    FONT-WEIGHT: normal;
+    FONT-SIZE: 10pt;
+    FONT-FAMILY: Arial;
+    BACKGROUND-COLOR: #ffffff
+}
+FONT
+{
+    FONT-WEIGHT: normal;
+    FONT-SIZE: 10pt;
+    FONT-STYLE: normal;
+    FONT-FAMILY: Arial, Helvetica, sans-serif
+}
+
+TD.template:nth-child(2) 
+{
+    width:1% !important;
+    white-space: nowrap !important;
+}
+
+TD.ztemplate:nth-child(2) 
+{
+    white-space: nowrap !important;
+}
+
+table#tblradio tbody td.template:nth-child(2) {
+    width:22% !important;
+}
+TD.template
+{   
+    FONT-WEIGHT: bold;
+    FONT-SIZE: 12px;
+    COLOR: black;
+    FONT-FAMILY: arial, helvetica, sans-serif
+}
+TD.header
+{
+    FONT-WEIGHT: bold;
+    FONT-SIZE: 12px;
+    TEXT-TRANSFORM: uppercase;
+    COLOR: #ffffff;
+    FONT-FAMILY: arial, helvetica, sans-serif;
+    HEIGHT: 22px;
+    BACKGROUND-COLOR: #2ebbfc;
+}
+TD.TableRowHeader
+{
+    FONT-WEIGHT: bold;
+    FONT-SIZE: 12px;
+    TEXT-TRANSFORM: uppercase;
+    COLOR: #ffffff;
+    FONT-FAMILY: arial, helvetica, sans-serif;
+    HEIGHT: 22px;
+    BACKGROUND-COLOR: #2EBBFC;
+}
+TD.result
+{
+    FONT-SIZE: 12px;
+    COLOR: black;
+    FONT-FAMILY: Arial;
+    TEXT-ALIGN: left
+}
+
+.resultGridView
+{
+    FONT-SIZE: 12px;
+    COLOR: black;
+    FONT-FAMILY: arial,helvetica,sans-serif;
+    TEXT-ALIGN: left;
+    vertical-align:top
+}
+
+TD.resultright
+{
+    FONT-SIZE: 12px;
+    COLOR: black;
+    FONT-FAMILY: Arial;
+    TEXT-ALIGN: right
+}
+TD.resultcenter
+{
+    FONT-SIZE: 12px;
+    COLOR: black;
+    FONT-FAMILY: Arial;
+    TEXT-ALIGN: center
+}
+TD.resultheadersort
+{
+    BORDER-RIGHT: black 0.1pt;
+    BORDER-TOP: black 0.1pt;
+    FONT-WEIGHT: bold;
+    FONT-SIZE: 12px;
+    TEXT-TRANSFORM: capitalize;
+    BORDER-LEFT: black 0.1pt;
+    COLOR: blue;
+    BORDER-BOTTOM: black 0.1pt;
+    FONT-FAMILY: arial, helvetica, sans-serif;
+    BACKGROUND-COLOR: #999999;
+    TEXT-ALIGN: center
+}
+TD.normal
+{
+    FONT-SIZE: 12px;
+    FONT-FAMILY: Arial, helvetica, sans-serif
+}
+TD.normal2
+{
+    FONT-SIZE: 12px;
+    COLOR: #cc0000;
+    FONT-FAMILY: Arial, helvetica, sans-serif
+}
+TD.normal3
+{
+    FONT-SIZE: 12px;
+    COLOR: blue;
+    FONT-FAMILY: Arial, helvetica, sans-serif
+}
+TD.mandatory
+{
+    FONT-WEIGHT: bold;
+    FONT-SIZE: 12px;
+    TEXT-TRANSFORM: capitalize;
+    COLOR: #cc0000;
+    FONT-STYLE: italic;
+    FONT-FAMILY: Arial;
+    TEXT-ALIGN: left
+}
+
+.TableCell
+{
+	 FONT-WEIGHT: bold;
+    FONT-SIZE: x-small;
+    TEXT-TRANSFORM: capitalize;
+    COLOR: #cc0000;
+    FONT-STYLE: italic;
+    FONT-FAMILY: Arial;
+    TEXT-ALIGN: left
+}
+
+TD.reditalic
+{
+    FONT-SIZE: x-small;
+    COLOR: #ff3333;
+    FONT-STYLE: italic;
+    FONT-FAMILY: Arial
+}
+TD.resultheaderleft
+{
+    BORDER-RIGHT: black;
+    BORDER-TOP: black;
+    FONT-WEIGHT: bold;
+    FONT-SIZE: 12px;
+    TEXT-TRANSFORM: capitalize;
+    BORDER-LEFT: black;
+    COLOR: #000000;
+    BORDER-BOTTOM: black;
+    FONT-FAMILY: arial, helvetica, sans-serif;
+    BACKGROUND-COLOR: #999999;
+    TEXT-ALIGN: left
+}
+TD.boxheader
+{
+    COLOR: lightskyblue;
+    FONT-FAMILY: Arial, Courier;
+    TEXT-ALIGN: center
+}
+TD.italic
+{
+    FONT-WEIGHT: bolder;
+    FONT-SIZE: 12px;
+    TEXT-TRANSFORM: none;
+    COLOR: #009999;
+    FONT-STYLE: italic;
+    FONT-FAMILY: Arial, verdana, sans-serif
+}
+
+TD.tdtextgreen
+{
+    FONT-WEIGHT: bolder;
+    FONT-SIZE: 12px;
+    TEXT-TRANSFORM: none;
+    COLOR: #009999;
+    FONT-STYLE: italic;
+    FONT-FAMILY: Arial, verdana, sans-serif
+}
+
+
+
+TD.resultcenter
+{
+    FONT-SIZE: 10pt;
+    COLOR: black;
+    FONT-FAMILY: Arial;
+    BACKGROUND-COLOR: white;
+    TEXT-ALIGN: center
+}
+TD.templatedis
+{
+    FONT-WEIGHT: bold;
+    FONT-SIZE: 12pt;
+    COLOR: black;
+    FONT-FAMILY: Arial;
+    BACKGROUND-COLOR: gray
+}
+INPUT.inputreadonly
+{
+    BORDER-RIGHT: white;
+    BORDER-TOP: white;
+    FONT-SIZE: 12px;
+    BORDER-LEFT: white;
+    COLOR: black;
+    BORDER-BOTTOM: white;
+    FONT-FAMILY: Arial;
+    BACKGROUND-COLOR: white;
+    border:0 
+}
+TEXTAREA.textareareadonly
+{
+    FONT-SIZE: 12px;
+    COLOR: black;
+    FONT-FAMILY: Arial;
+    BACKGROUND-COLOR: white
+}
+A.LinkWeekend
+{
+    FONT-WEIGHT: bolder;
+    FONT-SIZE: 12px;
+    COLOR: red;
+    FONT-FAMILY: Arial;
+    TEXT-DECORATION: none
+}
+A.LinkPublicHoliday
+{
+    FONT-WEIGHT: bolder;
+    FONT-SIZE: 12px;
+    COLOR: blue;
+    FONT-FAMILY: Arial;
+    TEXT-DECORATION: none
+}
+A.NormalDay
+{
+    FONT-SIZE: 12px;
+    COLOR: black;
+    FONT-FAMILY: Arial;
+    TEXT-DECORATION: none
+}
+TD.redbold
+{
+    FONT-WEIGHT: bolder;
+    FONT-SIZE: 12px;
+    COLOR: red;
+    FONT-FAMILY: Arial;
+    TEXT-DECORATION: none
+}
+TD.bluebold
+{
+    FONT-WEIGHT: bolder;
+    FONT-SIZE: 12px;
+    COLOR: blue;
+    FONT-FAMILY: Arial;
+    TEXT-DECORATION: none
+}
+IMG.ImgHidden
+{
+    VISIBILITY: hidden
+}
+TD.PrintExam
+{
+    BORDER-RIGHT: black;
+    BORDER-TOP: black;
+    FONT-WEIGHT: bold;
+    FONT-SIZE: 12px;
+    TEXT-TRANSFORM: uppercase;
+    BORDER-LEFT: black;
+    COLOR: black;
+    BORDER-BOTTOM: black;
+    FONT-FAMILY: Arial, sans-serif, helvetica;
+    BACKGROUND-COLOR: #48bb90;
+    TEXT-DECORATION: underline
+}
+A.Bullet
+{
+    FONT-WEIGHT: bold;
+    FONT-SIZE: 10pt;
+    LIST-STYLE-IMAGE: url(/HRMISNET/common/images/bullet.gif);
+    COLOR: #006f6d;
+    FONT-FAMILY: Verdana;
+    TEXT-DECORATION: none
+}
+LI.LIHeader
+{
+    FONT-WEIGHT: bold;
+    FONT-SIZE: 10pt;
+    LIST-STYLE-IMAGE: url(/HRMISNET/Common/images/minus.gif);
+    FONT-FAMILY: Verdana;
+    BACKGROUND-COLOR: #999999;
+    TEXT-DECORATION: none
+}
+LI.LIChild
+{
+    FONT-WEIGHT: bold;
+    FONT-SIZE: 10pt;
+    LIST-STYLE-IMAGE: url(/HRMISNET/Common/images/bullet.gif);
+    COLOR: #006f6d;
+    FONT-FAMILY: Verdana;
+    TEXT-DECORATION: none
+}
+TD.OwnerHeader
+{
+    BORDER-RIGHT: black;
+    BORDER-TOP: black;
+    FONT-WEIGHT: bold;
+    FONT-SIZE: 12px;
+    TEXT-TRANSFORM: uppercase;
+    BORDER-LEFT: black;
+    COLOR: white;
+    BORDER-BOTTOM: black;
+    FONT-FAMILY: Arial;
+    BACKGROUND-COLOR: #009999
+}
+TEXTAREA.inputtextarea
+{
+    FONT-SIZE: 12px;
+    TEXT-TRANSFORM: none;
+    COLOR: black;
+    FONT-FAMILY: Arial
+}
+DIV.TreeDivScroll
+{
+    BORDER-RIGHT: 2px inset;
+    BORDER-TOP: 2px inset;
+    OVERFLOW: auto;
+    BORDER-LEFT: 2px inset;
+    WIDTH: 100%;
+    BORDER-BOTTOM: 2px inset;
+    POSITION: relative
+}
+DIV.DataDivScroll
+{
+    OVERFLOW: auto;
+    WIDTH: 100%;
+    POSITION: relative
+}
+TD.CapRedItalic
+{
+    FONT-SIZE: 12px;
+    COLOR: #ff3333;
+    FONT-STYLE: italic;
+    FONT-FAMILY: Arial;
+    FONT-VARIANT: small-caps
+}
+TD.CapOrange
+{
+    FONT-SIZE: 12px;
+    COLOR: #ff8000;
+    FONT-FAMILY: Arial;
+    FONT-VARIANT: small-caps;
+	TEXT-DECORATION: underline
+}
+TD.whitebold
+{
+    FONT-WEIGHT: bolder;
+    FONT-SIZE: 12px;
+    COLOR: white;
+    FONT-FAMILY: Arial;
+    TEXT-DECORATION: none
+}
+INPUT.fontreadonly
+{
+    FONT-WEIGHT: bolder;
+    FONT-FAMILY: Arial
+}
+P.Normal
+{
+    FONT-SIZE: 12px;
+    FONT-FAMILY: Arial, helvetica, sans-serif
+}
+TD.disabledbold
+{
+    FONT-WEIGHT: bold;
+    FONT-SIZE: 12px;
+    COLOR: gray;
+    FONT-FAMILY: Arial
+}
+TD.resultheader
+{
+    BORDER-RIGHT: black 0.1pt;
+    BORDER-TOP: black 0.1pt;
+    FONT-WEIGHT: bold;
+    FONT-SIZE: 12px;
+    TEXT-TRANSFORM: capitalize;
+    BORDER-LEFT: black 0.1pt;
+    COLOR: black;
+    BORDER-BOTTOM: black 0.1pt;
+    FONT-FAMILY: Arial, helvetica, sans-serif;
+    BACKGROUND-COLOR: #999999;
+    TEXT-ALIGN: center
+}
+TD.InboxResult
+{
+    FONT-SIZE: 12px;
+    TEXT-TRANSFORM: none;
+    COLOR: black;
+    FONT-FAMILY: Arial;
+    BACKGROUND-COLOR: lightgoldenrodyellow
+}
+TD.footer
+{
+    FONT-WEIGHT: bold;
+    FONT-SIZE: 12px;
+    COLOR: #ffffff;
+    FONT-FAMILY: Arial, helvetica, san-serif;
+    BACKGROUND-COLOR: #009999
+}
+TD.InboxRed
+{
+    FONT-SIZE: 12px;
+    COLOR: red;
+    FONT-FAMILY: Arial;
+    BACKGROUND-COLOR: lightgoldenrodyellow
+}
+.link
+{
+    CURSOR: pointer;
+    COLOR: blue
+}
+TD.resultyellow
+{
+    FONT-SIZE: 12px;
+    COLOR: black;
+    FONT-FAMILY: Arial;
+    BACKGROUND-COLOR: lightyellow
+}
+TD.TDTabSel
+{
+    BORDER-RIGHT: #a9a9a9 2px outset;
+    BORDER-TOP: #a9a9a9 2px outset;
+    FONT-SIZE: 12px;
+    BORDER-LEFT: #a9a9a9 2px outset;
+    CURSOR: pointer;
+    COLOR: #000000;
+    FONT-FAMILY: Arial;
+    /*BACKGROUND-COLOR: #c0c0c0;*/
+    BACKGROUND-COLOR: #D8D8D8;
+    TEXT-ALIGN: center
+}
+TD.TDTabUnSel
+{
+    BORDER-RIGHT: #a9a9a9 2px outset;
+    BORDER-TOP: #a9a9a9 2px outset;
+    FONT-SIZE: 12px;
+    BORDER-LEFT: #a9a9a9 2px outset;
+    CURSOR: pointer;
+    COLOR: #ffffff;
+    BORDER-BOTTOM: #a9a9a9 2px inset;
+    FONT-FAMILY: Arial;
+    BACKGROUND-COLOR: #808080;
+    TEXT-ALIGN: center
+}
+TD.TDTabEmpty
+{
+    FONT-SIZE: 12px;
+    BORDER-BOTTOM: #a9a9a9 2px inset;
+    FONT-FAMILY: Arial;
+    TEXT-ALIGN: center
+}
+TD.TDTabBody
+{
+    BORDER-RIGHT: #a9a9a9 2px outset;
+    FONT-SIZE: 10px;
+    TEXT-TRANSFORM: uppercase;
+    BORDER-LEFT: #a9a9a9 2px outset;
+    COLOR: #000000;
+    BORDER-BOTTOM: #a9a9a9 2px outset;
+    FONT-FAMILY: Arial;
+    /*BACKGROUND-COLOR: #c0c0c0;*/
+    BACKGROUND-COLOR: #D8D8D8;
+    TEXT-ALIGN: center
+}
+DIV.DivTabBody
+{
+    MARGIN-BOTTOM: 10px;
+    OVERFLOW: auto
+}
+TD.resultblue
+{
+    FONT-SIZE: 12px;
+    COLOR: blue;
+    FONT-FAMILY: Arial;
+    TEXT-DECORATION: underline
+}
+TEXTAREA.txtTextArea
+{
+    FONT-SIZE: 12px;
+    WIDTH: 345px;
+    COLOR: #000000;
+    FONT-FAMILY: Arial;
+    HEIGHT: 100px
+}
+TD.InboxAlert
+{
+    FONT-WEIGHT: bolder;
+    FONT-SIZE: 12px;
+    TEXT-TRANSFORM: none;
+    COLOR: white;
+    FONT-FAMILY: Arial;
+    BACKGROUND-COLOR: transparent
+}
+A.AHref
+{
+    FONT-SIZE: 12px;
+    CURSOR: pointer;
+    COLOR: blue;
+    FONT-FAMILY: Arial;
+    TEXT-DECORATION: underline
+}
+A.HLink
+{
+    FONT-WEIGHT: bold;
+    FONT-SIZE: 12px;
+    CURSOR: pointer;
+    COLOR: blue;
+    FONT-FAMILY: Arial;
+    TEXT-DECORATION: underline
+}
+A.HLinkNormal
+{
+    FONT-WEIGHT: normal;
+    FONT-SIZE: 12px;
+    CURSOR: pointer;
+    COLOR: blue;
+    FONT-FAMILY: Arial;
+    TEXT-DECORATION: underline
+}
+
+A.LinkWeekend
+{
+    FONT-WEIGHT: bolder;
+    FONT-SIZE: 12px;
+    COLOR: red;
+    FONT-FAMILY: Arial;
+    TEXT-DECORATION: none
+}
+A.LinkPublicHoliday
+{
+    FONT-WEIGHT: bolder;
+    FONT-SIZE: 12px;
+    COLOR:Blue;
+    FONT-FAMILY: Arial;
+    TEXT-DECORATION: none
+}
+A.NormalDay
+{
+    FONT-SIZE: 12px;
+    COLOR:Black;
+    FONT-FAMILY: Arial;
+    TEXT-DECORATION: none
+}
+
+INPUT.txtfarid
+{
+    POSITION: absolute
+}
+INPUT.textreadonly
+{
+    FONT-SIZE: 12px;
+    COLOR: black;
+    FONT-STYLE: normal;
+    FONT-FAMILY: Arial
+}
+TD.FlxHeader
+{
+    BORDER-RIGHT: 2px outset;
+    BORDER-TOP: 2px outset;
+    FONT-WEIGHT: bolder;
+    FONT-SIZE: 11px;
+    BORDER-LEFT: 2px outset;
+    COLOR: black;
+    BORDER-BOTTOM: 2px outset;
+    FONT-FAMILY: Arial;
+    BACKGROUND-COLOR: gray;
+    TEXT-ALIGN: center
+}
+TD.FlxResult
+{
+    BORDER-RIGHT: 1px inset;
+    BORDER-TOP: 1px inset;
+    PADDING-LEFT: 5px;
+    FONT-SIZE: 11px;
+    PADDING-BOTTOM: 2px;
+    BORDER-LEFT: 1px inset;
+    COLOR: black;
+    PADDING-TOP: 2px;
+    BORDER-BOTTOM: 1px inset
+}
+TD.greenbold
+{
+    FONT-WEIGHT: bolder;
+    FONT-SIZE: 12px;
+    COLOR: green;
+    FONT-FAMILY: Arial
+}
+INPUT.inputtextbox
+{
+    FONT-SIZE: 12px;
+    FONT-FAMILY: Arial
+}
+TD.pmclasstemplete
+{
+    FONT-SIZE: 12px;
+    COLOR: black;
+    FONT-FAMILY: Arial;
+    BACKGROUND-COLOR: lemonchiffon
+}
+SELECT.inputComboBox
+{
+    FONT-SIZE: 12px;
+    FONT-FAMILY: Arial
+}
+TD.smallnote
+{
+    FONT-WEIGHT: bolder;
+    FONT-SIZE: 11px;
+    COLOR: #009999;
+    FONT-FAMILY: Arial, helvetica, sans-serif
+}
+
+.Freezing
+{
+	overflow :auto;
+   position:relative ;
+   top:expression(this.offsetParent.scrollTop);
+   z-index: 10;
+}
+
+.FreezingCol
+{
+	overflow :auto; 
+   LEFT: expression(document.getElementById("freezingDiv").scrollLeft);
+   /*freezingDiv is the name of the div to make your datagrid scrollable */ 
+   POSITION: relative;
+   z-index: 1;
+}
+
+.FreezingFooter
+{
+	overflow :auto;
+   position: RELATIVE;
+   bottom:expression(this.offsetParent.scrollBottom-3);
+   z-index: 10;
+}
+
+.Btn
+{
+	behavior: url(/HRMISNET/Common/HTC/EVENTS.HTC);
+	width:90px;
+	height:25;
+	cursor:pointer;
+}
+
+.Out
+{
+	behavior: url(/HRMISNET/Common/HTC/EVENTS.HTC);
+	background-color:Gray;
+	width:80px;
+	height:25px;
+	color:White;
+	cursor:pointer;
+	font-style:italic;
+	font-weight:bold;
+	font-family:Arial;
+	font-size:12px;
+	border-style:solid;
+	border-width:1px;
+	border-color:Black;
+}
+
+.Over
+{
+	behavior: url(/HRMISNET/Common/HTC/EVENTS.HTC);
+	background-color:#BCFFA9;
+	width:80px;
+	height:25px;
+	color:Black;
+	cursor:pointer;
+	font-style:italic;
+	font-weight:bold;
+	font-family:Arial;
+	font-size:12px;
+	border-style:solid;
+	border-width:1px;
+	border-color:Green;
+	
+	
+}
+
+.NoRec
+{
+    COLOR: #ff3333;
+    FONT-STYLE: italic;
+    FONT-FAMILY: Arial;
+    font-size:small;
+}
+
+.GVFixedHeader
+{ 
+	background-color:ActiveBorder; 
+	position:relative; 
+	top:expression(this.offsetParent.scrollTop);
+	border-spacing:2px;
+	border-collapse:separate;
+	border-color:white;
+	border-style:solid;
+	font-family:Arial;
+	font-size:12px;
+	text-align:left;
+	
+}
+
+.GVMovableHeader
+{ 
+	background-color:ActiveBorder; 
+	top:auto;
+	position:relative; 
+	border-spacing:2px;
+	border-collapse:separate;
+	border-color:white;
+	border-style:solid;
+	font-family:Arial;
+	font-size:12px;
+	text-align:left;
+	
+}
+
+.fasttracktitle
+{
+    font-size:20px;
+    font-weight:bold;
+    color:white;
+}
+
+.newGVMovableHeader
+{ 
+	background-color:ActiveBorder; 
+	top:auto;
+	position:absolute; 
+	border-spacing:2px;
+	border-collapse:separate;
+	border-color:white;
+	border-style:solid;
+	font-family:Arial;
+	font-size:12px;
+	text-align:left;
+}
+
+.container {overflow:auto;}
+.container table th {position:relative;}
+.container table tbody {overflow-x:hidden;} 
+
+.GVFixedFooter 
+{ 
+	position:relative; 
+	bottom:expression(getScrollBottom(this.parentNode.parentNode.parentNode.parentNode));
+	background-color:#FFCC99;
+}
+
+.GVMovableFooter 
+{ 
+	position:relative; 
+	bottom:auto;
+	background-color:#FFCC99;
+}
+
+.instruction 
+{ 
+	position:relative; 
+	bottom:expression(getScrollBottom(this.parentNode.parentNode.parentNode.parentNode));
+	background-color:White
+}
+
+.header
+{
+    FONT-WEIGHT: bold;
+    FONT-SIZE: 12px;
+    TEXT-TRANSFORM: uppercase;
+    COLOR: #ffffff;
+    FONT-FAMILY: arial, helvetica, sans-serif;
+    HEIGHT: 22px;
+    BACKGROUND-COLOR: #009999
+}
+
+tr.GridViewHeader th, tr.GridViewHeader td
+{
+background-color:Silver;
+}
+
+/*.HrefNoChange a, .HrefNoChange a:link, .HrefNoChange a.visited, .HrefNoChange a.active, .HrefNoChange a.hover
+{
+	color:Blue;
+	 
+}*/
+
+A 
+{
+	color:Blue;
+}
+	
+
+A:active
+{ 
+	color:Blue;
+}
+
+A:hover
+{ 
+	color:Blue;
+}
+
+.footer {
+  position:absolute;
+  bottom:0;
+  width:98%;
+  height:3%;
+  border-style:none;
+  }
+
+TD.FooterCell
+{
+    FONT-WEIGHT: bold;
+    FONT-SIZE: 12px;
+    TEXT-TRANSFORM: uppercase;
+    COLOR: #ffffff;
+    FONT-FAMILY: arial, helvetica, sans-serif;
+    HEIGHT: 10px;
+    BACKGROUND-COLOR: #2ebbfc;
+}
+
+.RecordHeader
+{
+	width:100%;
+	border-color:White;
+	border-style:solid;
+	border-width:thin;
+	background-color:#cce5ff;
+	font-size: 10pt;
+	font-family: arial, helvetica, sans-serif;
+	}
+
+.RecordHeaderSC
+{
+	width:100%;
+	border-color:White;
+	border-style:solid;
+	border-width:thin;
+	background-color:#CCCCCC;
+	font-size: 10pt;
+	font-family: arial, helvetica, sans-serif;
+	}
+	
+	
+	.SubRecordHeader
+{
+	width:50%;
+	border-color:White;
+	border-style:solid;
+	border-width:thin;
+	background-color:#cce5ff;
+	font-size: 10pt;
+	font-family: arial, helvetica, sans-serif;
+	}
+	
+	
+.InboxReds
+{
+    FONT-SIZE: 12px;
+    COLOR: red;
+    FONT-FAMILY: Arial;
+    BACKGROUND-COLOR: lightgoldenrodyellow
+}
+
+.input-cal{
+    background:url(/HRMISNET/Common/CSS/jquery/base/images/icon-cal.jpg) no-repeat right;
+}
+.parsley-error-list{
+    margin: 0 0 0 10px;
+    list-style-type: none;
+    padding: 0;
+    color: #ff0000;
+}
+img[name="exit66"] {
+    height:30px !important;
+    width:auto !important;
+}
+input[type="image"] {
+    height:30px !important;
+    width:auto !important;
+}
+#tableButton img {
+    height:30px !important;
+    width:auto !important;
+}
+input[type="button"]{
+	background: #b2b2b2;
+	border: #b2b2b2 1px solid;
+	display:inline-block;
+	color:#fff;
+	font-size:12px;
+    text-transform:uppercase;
+	font-weight:bold;
+	height:30px;
+	text-decoration:none;
+	text-align:center;
+	padding: 0 23px;
+    margin-right:5px;
+    cursor:pointer;
+}
+input[type="button"]:hover{color: #b2b2b2;background: #fff}
+
+input#txtAgcyName,input#txtOrgName,input#txtRoleName {
+    outline:0;
+    border:0;
+    width:100%;
+    background:none;
+    cursor:default;
+    font-size:12px;
+}
+ 
+.ui-widget {
+    FONT-SIZE: 10pt !important;
+    FONT-FAMILY: Arial !important;
+}
+
+/* boxes in Fast track */
+
+
+         
+         .box a:hover {
+	        text-decoration:none;
+         }
+
+
+div.tableContainer {
+    border: 1px solid #009999;
+}
+
+div.tableContainer .titleBar {
+    display: flex;
+    align-items: center;
+    BACKGROUND-COLOR: #2ebbfc;
+    FONT-WEIGHT: bold;
+    FONT-SIZE: 12px;
+    TEXT-TRANSFORM: uppercase;
+    COLOR: #ffffff;
+    FONT-FAMILY: arial, helvetica, sans-serif;
+    HEIGHT: 22px;
+}
+
+div.tableContainer .noteBar {
+    display: flex;
+    justify-content: left;
+    font-style: italic;
+    COLOR: #009999;
+    FONT-WEIGHT: bolder;
+    FONT-SIZE: 12px;
+    TEXT-TRANSFORM: none;
+    FONT-FAMILY: Arial, verdana, sans-serif;
+
+}
+
+div.tableContainer .buttonBar {
+    display: flex;
+    justify-content: center;
+}
+
+
+

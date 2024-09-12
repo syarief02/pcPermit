@@ -1,0 +1,63 @@
+function check_uncheck(Val)
+{
+    var ValChecked = Val.checked;
+    var ValId = Val.id;
+    var frm = document.forms[0];
+    var currID;
+    // Loop through all elements
+
+    for (i = 0; i < frm.length; i++)
+    {
+        // Look for Header Template's Checkbox
+        //As we have not other control other than checkbox we just check following statement
+        if (this !== null)
+        {
+            if (frm.elements[i].type == "checkbox" && (frm.elements[i].id.indexOf('chkAll') != -1 || frm.elements[i].id.indexOf('chkSelect') != -1))
+            {
+                if (ValId.indexOf('chkAll') != -1)
+                {
+                    // Check if main checkbox is checked,
+                    // then select or deselect datagrid checkboxes
+                    if (ValChecked) {//alert(frm.elements[i].disabled);
+                        if (frm.elements[i].disabled === false) {
+                            frm.elements[i].checked = true;
+                        }
+                    }
+                    else
+                        if (frm.elements[i].disabled === false) {
+                            frm.elements[i].checked = false;
+                        }
+                }
+                else if (ValId.indexOf('chkSelect') != -1)
+                {
+                    // Check if any of the checkboxes are not checked, and then uncheck top select all checkbox
+                    // if (frm.elements[i].checked == false)
+                    //  {
+                    var breakflag = false;
+                    var allID;
+                    for (a = 0; a < frm.elements.length; a++)
+                    {
+                        if (frm.elements[a].type == "checkbox")
+                        {
+                            currID = frm.elements[a].id;
+                            if (currID.indexOf('chkAll') != -1)
+                            {
+                                frm.elements[a].checked = false;
+                                allID = frm.elements[a].id;
+                            }
+                            else if (currID.indexOf('chkSelect') != -1)
+                            {
+                                if (frm.elements[a].checked === false)
+                                {
+                                    breakflag = true;
+                                    break;
+                                }
+                            }
+                        }
+                    }//for a
+                    //}// if
+                }
+            }//if check type
+        } // if
+    } // for
+} // function

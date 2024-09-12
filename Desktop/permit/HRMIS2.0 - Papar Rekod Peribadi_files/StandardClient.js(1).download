@@ -1,0 +1,1916 @@
+﻿
+var language, ErrNum;
+var obj, objLang;
+var strPrevSelMenuId;
+setLanguage();
+// SetLocale(2057) ;//English – UK,en-gb        28/11/2013  sca: remarked. IIS will handle localization. 
+
+
+switch (language.toUpperCase()) {
+    case "BM":
+        MsgConfirmReset = "Adakah anda pasti untuk semula?";
+        MsgConfirmExit = "Adakah anda pasti untuk keluar?";
+        MsgConfirmCancel = "Adakah anda pasti untuk batalkan operasi?";
+
+        BoxTitle = "Mesej HRMIS";
+
+        ErrNum = "Sila masukkan nilai (0 - 9) sahaja.";
+        ErrDbl = "Sila masukkan nilai (0 - 9) dan (.) sahaja.";
+        ErrDot = "Input tidah sah - Hanya 1 titik (.) sahaja diterima!";
+        ErrLen = "Sila hadkan input anda kepada *LEN* aksara sahaja.";
+        ErrCode = "Aksara ' dan * tidak dibenarkan bagi medan Kod!";
+        ErrAlNum = "Sila masukkan abjad (A-Z / a-z) atau nombor (0-9) sahaja.";
+        ErrAlpha = "HRMIS Ralat 50005 " + '\r\n' + "Sila masukkan abjad (A-Z / a-z) atau nombor (0-9)" + '\r\n' + "atau simbol ( ,  -  .  / '  @ \\ [ ^ ] _ ` * ) sahaja.";
+        break;
+    case "BI":
+
+        MsgConfirmReset = "Are you sure you want to reset?";
+        MsgConfirmExit = "Are you sure you want to exit?";
+        MsgConfirmCancel = "Are you sure you want to cancel?";
+
+        BoxTitle = "HRMIS Message";
+
+        ErrNum = "Please enter values (0 - 9) only.";
+        ErrDbl = "Please enter values (0 - 9) && (.) only.";
+        ErrDot = "Invalid input - Only 1 dot (.) is accepted!";
+        ErrLen = "Please limit you input to *LEN* characters only.";
+        ErrCode = "Character ' && * is ! allowed for Code field!";
+        ErrAlNum = "Please enter alphabet (A-Z / a-z) || numeric (0-9) only.";
+        ErrAlpha = "HRMIS Error 50005 " + '\r\n' + "Please insert alphabet (A-Z / a-z) || numeric (0-9)" + '\r\n' + "or symbol ( ,  -  .  / ' \\ @ [ ^ ] _ ` * ) only.";
+        break;
+}
+
+
+
+function setLanguage() {
+    obj = document.getElementById("SCS");
+
+    var objLang;
+    if (obj !== null) {
+        objLang = obj.innerHTML;
+
+
+        if (objLang.indexOf("BI") >= 0) {
+            language = "BI";
+        } else {
+            language = "BM";
+        }
+
+    } else { language = "BM"; }
+
+}
+
+
+function cbfMsgBMBI(incStrBM, incStrBI) {
+    switch (language.toUpperCase()) {
+        case "BI": return incStrBI;
+        case "BM": return incStrBM;
+        default: return "Error: Language ! set!";
+    }
+}
+
+
+if (typeof (String.prototype.trim) === "undefined") {
+    String.prototype.trim = function () {
+        return String(this).replace(/^\s+|\s+$/g, '');
+    };
+}
+
+
+
+function stdMsgBox(MessageType, ProcessType) {
+    var myMsg = "";
+    strIncProc = setProcType(ProcessType);
+
+    switch (MessageType.toLowerCase().trim()) {
+        case "exist":
+            if (language.toUpperCase() == "BM") {
+                myMsg = "Rekod telah wujud!";
+            }
+            if (language.toUpperCase() == "BI") {
+                myMsg = "Record already exist!";
+            }
+            //myButtons = vbExclamation;
+            break;
+        case "change":
+            if (language.toUpperCase() == "BM")
+            { myMsg = "Tiada perubahan dikesan!"; }
+            if (language.toUpperCase() == "BI")
+            { myMsg = "No changes detected!"; }
+            //myButtons = vbExclamation;
+            break;
+
+        case "failed":
+            if (language.toUpperCase() == "BM") { myMsg = "Ralat: Operasi gagal dilaksanakan!"; }
+            if (language.toUpperCase() == "BI") { myMsg = "Error: Fail to execute the operation!"; }
+            //myButtons = vbCritical;
+            break;
+        case "norec":
+            if (language.toUpperCase() == "BM")
+            { myMsg = "Tiada rekod untuk di" + strIncProc + "!"; }
+            if (language.toUpperCase() == "BI") { myMsg = "No record to " + strIncProc + "!"; }
+            //myButtons = vbExclamation;
+            break;
+        case "select":
+            if (language.toUpperCase() == "BM") { myMsg = "Sila pilih rekod untuk di" + strIncProc + "!"; }
+            if (language.toUpperCase() == "BI") { myMsg = "Please choose record to " + strIncProc + "!"; }
+            //myButtons = vbExclamation;
+            break;
+        case "success":
+            if (language.toUpperCase() == "BM") {
+                myMsg = "Berjaya di" + strIncProc + "!";
+                if (language.toUpperCase() == "BI") {
+                    switch (strIncProctoLowerCase.substr(-1)) {
+                        case "e":
+                            strIncProc = strIncProc + "d";
+                            break;
+                        case "t":
+                            strIncProc = strIncProc + "ted";
+                            break;
+                        default: strIncProc = strIncProc + "ed";
+                            break;
+                    }
+                    myMsg = "Successfully " + strIncProc + "!";
+                }
+            }
+            //myButtons = vbInformation;
+            break;
+    }
+
+    alert(myMsg); // , myButtons, BoxTitle) ;
+}
+
+
+
+
+function SureTo(ProcessType) {
+
+    strIncProc = setProcType(ProcessType);
+    sentcase = strIncProc.toUpperCase().substr(1) + strIncProc.substr(-1 * (strIncProc.toLowerCase().length - 1));
+
+    switch (language.toUpperCase()) {
+        case "BM":
+            incMsgConfirm = "Adakah anda pasti untuk " + strIncProc + " rekod ini?";
+            incMsgCancel = "Operasi " + strIncProc + " telah dibatalkan!";
+            break;
+        case "BI":
+            incMsgConfirm = "Are you sure to " + strIncProc + " the record?";
+            incMsgCancel = sentcase + " operation has been cancelled!";
+            break;
+    }
+
+    answer = confirm(incMsgConfirm);
+    if (answer === false) {
+        alert(incMsgCancel);
+        return false;
+    } else if (answer === true) {
+        return true;
+    }
+}
+
+
+
+function Confirm_Exit() {
+    answer = confirm(MsgConfirmExit);
+    if (answer === false) {
+        return false;
+    } else if (answer === true) {
+        return true;
+    }
+}
+
+function Confirm_Cancel() {
+    answer = confirm(MsgConfirmCancel);
+    if (!answer) {
+        return false;
+    } else if (answer) {
+        return true;
+    }
+}
+
+function Confirm_Reset() {
+    answer = alert(MsgConfirmReset);
+    if (answer === false) {
+        return false;
+    } else if (answer === true) {
+        return true;
+    }
+}
+
+
+
+function CheckMandatory(incMsgMandatory) {
+    switch (language.toUpperCase()) {
+        case "BM":
+            incMsgMdtr01 = "Maklumat Mandatori Perlu Diisi :";
+            incMsgMdtr02 = "Sila Isi.";
+            break;
+        case "BI":
+            incMsgMdtr01 = "Mandatory Field(s) Should Be Filled :";
+            incMsgMdtr02 = "Please Fill.";
+            break;
+    }
+
+    if (incMsgMandatory !== "") {
+        strDispMsg = "____________________________" + '\r\n';
+        strDispMsg = strDispMsg + incMsgMdtr01 + '\r\n';
+
+        incMsgMandatory = strDispMsg + incMsgMandatory + '\r\n' + "____________________________" + '\r\n\r\n';
+        incMsgMandatory = incMsgMandatory + '\r\n' + incMsgMdtr02;
+
+        alert(incMsgMandatory);
+        return false;
+    } else {
+        return true;
+    }
+}
+
+
+function cbfChkField(objVal, TagNm) {
+    if (objVal.trim() === "") {
+        return '\r\n' + "  -  " + TagNm;
+    } else {
+        return "";
+    }
+
+}
+function cbfChkField2(objVal, TagNm) {
+    if (objVal.trim() === "- Pilihan -") {
+        return '\r\n' + "  -  " + TagNm;
+    } else {
+        return "";
+    }
+
+}
+
+function Set_Focus(objFocus) {
+    if (objFocus.value === "") {
+        //objFocus.focus();
+        return true;
+    }
+    {
+        return false;
+    }
+}
+
+
+//********************************************************************
+//""""""""""""""""""""""""" CHECKBOX CONTROL """""""""""""""""""""""""
+//********************************************************************
+
+function cbfChkAll(indBox, objChkALL) {
+    oChk = document.getElementsByName(objChkALL.value);
+    var totalBox, totalChecked;
+    if (indBox === 0) {
+        for (dx = 0; dx <= oChk.length - 1; dx++) {
+            if (oChk[dx].disabled === false) {
+                oChk[dx].checked = objChkALL.checked;
+            }
+        }
+
+    } else if (indBox == 1) {
+        totalBox = 0;
+        totalChecked = 0;
+
+        for (dx = 0; dx <= oChk.length - 1; dx++) {
+            if (oChk[dx].disabled === false) {
+                totalBox = totalBox + 1;
+                if (oChk[dx].checked === false) {
+                    objChkALL.checked = false;
+                    oChk = null;
+                }
+            } else if (oChk[dx].checked === true) {
+                totalChecked = totalChecked + 1;
+            }
+        }
+    }
+    if (parseInt(totalBox, 10) === parseInt(totalChecked, 10) && parseInt(totalBox, 10) > 0) {
+        objChkALL.checked = true;
+    }
+
+    oChk = null;
+}
+
+
+//***************************************************************************************
+//"""""""""""""""""""" CHECK INPUT : LENGTH / ALPHA, NUMERIC, SYMBOL """"""""""""""""""""
+
+function LmtLen(strVal, intLength) {
+    if (strVal.value.trim().length > parseInt(intLength)) {
+        strValNew = strVal.value.substr(1, parseInt(intLength, 10));
+        strVal.value = strValNew;
+        alert(ErrLen.replace("*LEN*", intLength));
+        strVal.focus();
+    }
+}
+
+
+//**********************************************************************************
+//"""""""""""""""""""""""""""" CHECK INPUT TYPE : MONEY """"""""""""""""""""""""""""
+
+function valid_Money(strText) {
+    okey = is_Money(strText);
+    if (okey === 1) {
+        alert(ErrDbl);
+    }
+    else if (okey === 2) {
+        alert(ErrDot);
+    }
+
+
+    if (strText.value !== "") {
+        strText.value = parseFloat(strText.value.toFixed(2).replace(",", ""));
+    }
+}
+
+
+//************************************************************************************
+
+//"""""""""""""""""""""""""""" CHECK INPUT TYPE : MONEY """"""""""""""""""""""""""""
+
+function valid_Money_noFormat(strText) {
+    okey = is_Money(strText);
+    if (okey === 1) {
+        alert(ErrDbl);
+    } else if (okey === 2) {
+        alert(ErrDot);
+    }
+
+    if (strText.value !== "") {
+        strText.value = strText.value.replace(",", "");
+    }
+}
+
+//"""""""""""""""""""""""""""" CHECK INPUT TYPE : INTEGER """"""""""""""""""""""""""""
+
+function PromptMessage(MessageToDisplayed) {
+    if (MessageToDisplayed.indexOf("<ENTER>") >= 0) {
+        MessageToDisplayed = MessageToDisplayed.replace("<ENTER>", '\r\n');
+    }
+    return alert(MessageToDisplayed);
+}
+
+
+//This Sub Is Used To Function is_Number
+function valid_Numeric(strText, OriginalValue) {
+    obj = document.getElementById(OriginalValue);
+    okey = is_Number(strText);
+    if (okey === 1) {
+        alert(ErrNum);
+        strText.value = obj.value;
+    }
+}
+
+
+//********************************************************************************
+
+function setProcType(myIncProcess) {
+    if (language.toUpperCase() === "BM") {
+        switch (myIncProcess.toLowerCase()) {
+            case "save": return "simpan";
+
+            case "submit": return "hantar";
+
+            case "add": return "tambah";
+
+            case "delete": return "hapus";
+
+            case "update": return "kemaskini";
+
+            case "reset": return "set semula";
+
+            case "activate": return "aktifkan ID Pengguna";
+
+            case "deactivate": return "nyahaktifkan ID Pengguna";
+
+
+        }
+    } else if (language.toUpperCase() === "BI") {
+        return myIncProcess;
+    }
+}
+
+//function USED TO TEST INTEGER && DOT (.){
+function is_Money(number) {
+    lenCount = number.value.toString().length;
+
+    //""""""""""""""" CHECK FOR HOW MANY DOTS """""""""""""""""""""";
+    dotFound = 0;
+    for (myNum = 1 ; myNum < lenCount ; lenCount++) {
+        temp = number.value.substr(myNum, 1);
+        if (String.fromCharCode(temp) === 46) {
+            dotFound = dotFound + 1;
+
+            if (parseInt(dotFound, 10) > 1) {
+                newVal = number.value.substr(1, myNum - 1);
+                number.value = "";
+                return 2;
+            }
+        }
+
+
+
+
+        //""""""""""""""" CHECK FOR NUMERIC && DOT ONLY """""""""""""""""; 
+        for (var myNum = 1 ; myNum < lenCount ; lenCount++) {
+            temp = number.value.substr(myNum, 1);
+            if (String.fromCharCode(temp) < 48 || String.fromCharCode(temp) > 57) {  //if(it's ! in range of numeric;
+                if ((String.fromCharCode(temp) !== 46) && (String.fromCharCode(temp) !== 44)) { // if(it's ! a dot...;
+
+                    newVal = number.value.substr(1, myNum - 1);
+                    number.value = "";
+                    return 1;
+                }
+            }
+        }
+    }
+    return 0;
+}
+
+//function USED TO TEST INTEGER{
+function is_Number(number)
+{
+    var lenCount = "";
+    var myNum = 0;
+    lenCount = number.value.toString().length;
+    for (myNum ; myNum < lenCount ; myNum++)
+    {
+
+        temp = number.value.substr(myNum, 1);
+        if (temp.charCodeAt() < 48 || temp.charCodeAt() > 57)
+        {
+            return 1;
+        }
+    }
+    return 0;
+}
+
+
+//****************************************************************************************
+//"""""""""""""""""""""""""""" CHECK : ALPHA, NUMERIC, SYMBOL """"""""""""""""""""""""""""
+
+function check_alphaNumericExtra(strText) {
+    okey = AlphaNumberSymbol(strText);
+
+    if (okey === 1) {
+        alert(ErrAlpha);
+    }
+
+
+    if (okey === 2) {
+        alert(ErrCode);
+        strText.select();
+    }
+}
+
+
+
+function AlphaNumberSymbol(strText) {
+    lenCount = strText.value.length;
+    if (lenCount <= 0) {
+        return 0;
+    }
+
+
+    for (var myNum = 1 ; myNum < lenCount ; lenCount++) {
+        temp = strText.value.substr(myNum, 1);
+
+        if (String.fromCharCode(temp) >= 44 && String.fromCharCode(temp) <= 57) {
+            return 0;
+
+        } else if (String.fromCharCode(temp) >= 64 && String.fromCharCode(temp) <= 122) {
+            return 0;
+
+        } else if (String.fromCharCode(temp) === 10) {
+            return 0;
+
+        } else if (String.fromCharCode(temp) === 13) {
+            return 0;
+
+        } else if (String.fromCharCode(temp) === 32) {
+            return 0;
+
+        } else if (String.fromCharCode(temp) === 39 || String.fromCharCode(temp) == 42) {
+            if (strText.name.trim() === "txtCode") {
+                newVal = strText.value.substr(1, myNum - 1);
+                strText.value = newVal;
+                return 2;
+
+
+            } else {
+                return 0;
+            }
+
+        } else {
+            newVal = strText.value.substr(1, myNum - 1);
+            strText.value = newVal;
+            return 1;
+
+        }
+    }
+
+}
+
+
+
+//**************************************************************************************
+//"""""""""""""""""""""""""""" CHECK : ALPHA + NUMERIC ONLY """"""""""""""""""""""""""""
+
+function Check_AlphaNumeric(strText) {
+    okey = AlphaNumber(strText);
+
+    if (okey == 1) {
+        alert(ErrAlNum);
+        strText.value = "";
+        strText.focus();
+    }
+}
+
+
+function AlphaNumber(strText) {
+    lenCount = strText.value.length;
+    if (lenCount <= 0) {
+        return 0;
+    }
+
+    for (var myNum = 1 ; myNum < lenCount ; lenCount++) {
+        temp = strText.value.substr(myNum, 1);
+
+        if (String.fromCharCode(temp) >= 48 && String.fromCharCode(temp) <= 57) {
+            return 0;
+
+        } else if (String.fromCharCode(temp) >= 65 && String.fromCharCode(temp) <= 90) {
+            return 0;
+
+        } else if (String.fromCharCode(temp) >= 97 && String.fromCharCode(temp) <= 122) {
+            return 0;
+
+        } else {
+            return 1;
+        }
+    }
+}
+
+//******************************************************************
+// function : Encode the string from the normal string{
+//******************************************************************
+
+function URLEncode(strData) {
+    //sca: 02/12/2013   
+    return encodeURIComponent(strData);
+}
+
+function URLDecode(strConvert) {
+    //sca: 02/12/2013   
+    strConvert = strConvert.replace("+", " ");
+
+    return decodeURIComponent(strConvert);
+}
+
+//****************************************************************************
+// Author : PREM 
+// Date  : 10-05-2004
+// Encode an string so that it can be displayed correctly inside the browser.
+// Same effect as the Server.HTMLEncode method in ASP
+//****************************************************************************
+function HTMLEncode(Text) {
+    //var acode, repl;
+    //for (var i = HTMLEncode.length; i < 1; i + -1)
+    //{
+    //    acode = String.fromCharCode(HTMLEncode.substr(i, 1));
+    //    switch (acode)
+    //    {
+    //        case 32:
+    //            repl = "&nbsp;";
+    //            break;
+    //        case 34:
+    //            repl = "&quot;";
+    //            break;
+    //        case 38:
+    //            repl = "&amp;";
+    //            break;
+    //        case 60:
+    //            repl = "&lt;";
+    //            break;
+    //        case 62:
+    //            repl = "&gt;";
+    //            break;
+    //    }
+    //    if (repl.length)
+    //    {
+    //        return HTMLEncode.substr(i - 1) + repl + HTMLEncode.substr(i + 1);
+    //        // repl = "";
+    //    } else
+    //    { return Text; }
+    //}
+    var i;
+    var acode;
+    var repl;
+    //HTMLEncode = Text;
+    for (i = HTMLEncode.length; (i <= 1) ; i = (i + -1)) {
+        acode = (HTMLEncode.substr((i - 1), 1)).charCodeAt(0);
+        switch (acode) {
+            case 32:
+                repl = " ";
+                break;
+            case 34:
+                repl = '"';
+                break;
+            case 38:
+                repl = "&";
+                break;
+            case 60:
+                repl = "<";
+                break;
+            case 62:
+                repl = ">";
+                break;
+        }
+        if (repl.length) {
+            return (HTMLEncode.substr(0, (i - 1)) + (repl + HTMLEncode.substr(i)));
+            //repl = "";
+        } else { return Text; }
+    }
+}
+
+
+//***************************************************************************
+// function : Check date && will display slash "/" for date format (dd/mm/yyyy){
+//   Author : Hairi
+//   Date : 20 / 06 / 2001
+//
+//******************************************************************* *******
+
+//function function to check all the date data entry{
+function checkdate(strDate) {
+
+    strDay = strDate.substr(2);
+    if ((strDay >= 31)) {
+        strmsg = "Invalid day!!";
+        return strmsg;
+    }
+
+
+    strDate2 = strDate.substr(-6);
+    strMonth = strDate2.substr(2);
+    if ((strmonth > 12)) {
+        strmsg = "Invalid month!";
+        return strmsg;
+    }
+
+    strYear = strDate2.substr(-4);
+    return strDay + "/" + strMonth + "/" + strYear;
+
+}
+
+//***************************************************************************
+// function : Validate the title  for wild card searching{
+//   Author : Kalyan
+//   Date : 08/02/2002
+//
+//***************************************************************************
+
+function Validate(strTitle, strError, strName) {
+    var nPos, nLength;
+
+
+    nPos = strTitle.trim().indexOf("*");
+    nLength = strTitle.trim().length;
+
+    if (nPos !== 0) {
+        if (nPos === 1) {
+            return "";
+        }
+    } else if (nPos === nLength) { }
+    else {
+        strError = "Invalid " + strName;
+        return false;
+    }
+
+
+}
+
+
+// sca:28/11/2013  identical functiona ReFormatDate as below
+//////////////////**************************************************************************
+//////////////////function : reformat date from mm-dd-yyyy to dd-mm-yyyy (){
+//////////////////Author : Kalyan
+//////////////////Date : 29/03/2001
+//////////////////**************************************************************************
+
+////////////////function ReFormatDate(txtDate){
+////////////////    var strDDMMYYYY;
+////////////////    var strDate;
+////////////////    var strmonth;
+////////////////    var strYear;
+
+////////////////    var nFind;
+
+////////////////    if( txtDate.trim()  !== ""){
+////////////////        nFind=txtDate.indexOf("-");
+////////////////        if(nFind===0){
+////////////////            strDDMMYYYY = txtDatesplit("/");
+////////////////            strDate = strDDMMYYYY(1);
+////////////////            if(strDate.lentgh === 1){
+////////////////                strDate="0" + strDate;
+////////////////            }
+
+////////////////            strMonth = strDDMMYYYY(0);
+////////////////            if( strMonth.lentgh === 1){
+////////////////                strMonth="0" + strMonth;
+////////////////            }
+////////////////            strYear =  strDDMMYYYY(2).substr(4);
+////////////////            return  strDate + "/" + strMonth + "/" + strYear;
+////////////////        }else{
+////////////////            strDate =  txtDate.substr(9,2);
+////////////////            strMonth =  txtDate.substr(6,2);
+////////////////            strYear =  txtDate.substr(4);
+////////////////            return  strDate + "/" + strMonth + "/" + strYear;
+////////////////        }
+////////////////    }else{
+////////////////        return  "";
+////////////////    }
+
+////////////////}  
+
+
+//**************************************************************************
+//function : reformat date from yyyy-mm-dd T hh:mm:ss to dd/mm/yyyy (Date from DB){
+//Author : Hairi
+//Date : 20/6/2001
+//ReFormatDate - for VBScript function
+//FormatXMLDate - for ASP function
+//**************************************************************************
+
+function ReFormatDate(txtDate) {
+    strDate = txtDate.substr(9, 2);
+    strMonth = txtDate.substr(6, 2);
+    strYear = txtDate.substr(4);
+    return strDate + "/" + strMonth + "/" + strYear;
+}
+
+//**************************************************************************
+//function : reformat date from dd/mm/yyyy  to mm/dd/yyyy (Date from Browser){
+//Author : Prem
+//Date : 25/6/2001
+//ReFormatDate - for VBScript function
+//FormatXMLDate - for ASP function
+//**************************************************************************
+
+function ReFormatDateToSQL(txtDate) {
+
+    var strMM, strDD, strYYYY, strDate;
+    if (txtDate !== "") {
+        strDate = txtDate.split("/");
+        if (strDate.length > 3 || strDate.length < 2) {
+            return txtDate;
+        } else {
+            strDD = strDate[0];
+            strMM = strDate[1];
+            strYYYY = strDate[2];
+            return strMM + "/" + strDD + "/" + strYYYY;
+        }
+    } else {
+        return "";
+    }
+}
+
+//***************************************************************************
+//Please do ! delete this function - used by Perf Management
+//function : Reformat date from mm/dd/yyyy  to dd/mm/yyyy (Date COM Message){
+//Author : Roslan 
+//Date : 14-07-2001
+//**************************************************************************
+
+function RealDate(txtDt) {
+    var dt, mth, yr, realday, realmth, realdt, realYr;
+    var Now = new Date();
+    dt = Now.getDay();
+    mth = Now.getMonth();
+    Yr = Now.getYear();
+
+    realday = dt.length;
+    realmth = mth.length;
+
+    if (realday === 1) {
+        dt = "0" + dt;
+    } else {
+        dt = dt;
+    }
+
+    if (realmth === 1) {
+        mth = "0" + mth;
+    } else {
+        mth = mth;
+    }
+
+    return dt + "/" + mth + "/" + yr;
+
+    //FOR THIS --strErrMsg = "Date + Time:  " + RealDate(objDate.item(0).text) + String.fromCharCode(13) +  //   "Status:  Successfully Updated || Saved!" + String.fromCharCode(13);
+}
+
+//*********************************************************************************
+
+//*********************************************************************
+//function : get month in integer (1,2,3...) && display month in words{
+//Author : Kalyan
+//Date : 27/03/2002
+//**********************************************************************
+function GetMonthName(nMonth, strFlag) {
+    if (nMonth === "") {
+        return "Err";
+    }
+
+    if (strFlag === "BI") {
+        switch (nMonth) {
+            case "1":
+                return "January";
+
+            case "01":
+                return "January";
+
+            case "2":
+                return "February";
+
+            case "02":
+                return "February";
+
+            case "3":
+                return "March";
+
+            case "03":
+                return "March";
+
+            case "4":
+                return "April";
+
+            case "04":
+                return "April";
+
+            case "5":
+                return "May";
+
+            case "05":
+                return "May";
+
+            case "6":
+                return "June";
+
+            case "06":
+                return "June";
+
+            case "7":
+                return "July";
+
+            case "07":
+                return "July";
+
+            case "8":
+                return "August";
+
+            case "08":
+                return "August";
+
+            case "9":
+                return "September";
+
+            case "09":
+                return "September";
+
+            case "10":
+                return "October";
+
+            case "11":
+                return "November";
+
+            case "12":
+                return "December";
+
+        }
+    }
+    else if (strFlag === "BM") {
+        switch (nMonth) {
+            case "1":
+                return "Januari";
+
+            case "01":
+                return "Januari";
+
+            case "2":
+                return "Februari";
+
+            case "02":
+                return "Februari";
+
+            case "3":
+                return "Mac";
+
+            case "03":
+                return "Mac";
+
+            case "4":
+                return "April";
+
+            case "04":
+                return "April";
+
+            case "5":
+                return "Mei";
+
+            case "05":
+                return "Mei";
+
+            case "6":
+                return "Jun";
+
+            case "06":
+                return "Jun";
+
+            case "7":
+                return "Julai";
+
+            case "07":
+                return "Julai";
+
+            case "8":
+                return "Ogos";
+
+            case "08":
+                return "Ogos";
+
+            case "9":
+                return "September";
+
+            case "09":
+                return "September";
+
+            case "10":
+                return "Oktober";
+
+            case "11":
+                return "November";
+
+            case "12":
+                return "Disember";
+
+        }
+    }
+    else {
+        return "";
+    }
+}
+
+
+
+
+//****************************************************************************************
+// function : To Display Related Function That Have Beeen Use By System Refer By TableName{
+// Author  : Hamizan
+// Date     : 29/05/2002
+//****************************************************************************************
+
+function GetFunctionNm(strTableNm, strLanguage) {
+    var strActTblName;
+    StrActTblName = strTableNm.split("'");
+    strTableNm = StrActTblName[1];
+
+
+    if ((strLanguage === "BM")) {
+
+        //****************** Malay Version ***********;
+
+        switch (strTableNm) {
+
+            //*************************;
+            //*   DATA RUJUKAN        *;
+            //*************************;
+
+            //********** Menu Kod Emolumen/Potongan ***************;
+
+            case "tblREFElmnDctnType":
+                return "Jenis Emolumen/Potongan";
+
+            case "tblRefElmnDctnFlag":
+                return "Penanda Emolumen/Potongan";
+
+            case "tblREFElmnDctnCat":
+                return "Jenis Kategori Emolumen/Potongan";
+
+            case "tblRBRPyrSalChgDet":
+                return "Perubahan Terperinci Penyelarasan Gaji";
+
+            case "tblRBRPyrMthlyHisSalChgDet":
+                return "Sejarah Perubahan Penyelarasan Gaji Bulanan";
+
+            case "tblRBRPyrCancelSalChg":
+                return "Pembatalan Penyelarasan Gaji";
+
+            case "tblRBRPyrMthlySalChgDet":
+                return "Perubahan Penyelarasan Gaji Bulanan";
+
+            case "tblREFElmnDctn":
+                return "Emolumen/Potongan";
+
+            case "tblRBRElmnFlgInd":
+                return "Penunjuk Emolumen/Potongan";
+
+
+                //********** Jenis Transaksi ***************;
+
+            case "tblRBRPyrTrxTypeStatus":
+                return "Status Jenis Transaksi Gaji";
+
+            case "tblREFTrxSubType":
+                return "Status Sub-Jenis Transaksi Gaji";
+
+            case "tblRBRPyrMthlyTrxTypeStatus":
+                return "Status Bulanan Jenis Transaksi Gaji";
+
+            case "tblRBRPyrIncTaxSalChgDcsnTbl":
+                return "Jadual Keputusan Penyelarasan Gaji Cukai Pendapatan";
+
+
+                //********** Sub-Jenis Transaksi ***************     ;
+
+            case "tblREFTrxType":
+                return "Jenis Transaksi";
+
+
+                //********** Jenis Perubahan ***************    
+
+            case "tblRBRChgTypeMsg":
+                return "Jenis Perubahan Pesanan";
+
+            case "tblRBRCOHPG":
+                return "Unknown + tablename = " + strTableNm;
+
+            case "tblRBRGCR":
+                return "Unknown + tablename = " + strTableNm;
+
+            case "tblCOSep":
+                return "Unknown + tablename = " + strTableNm;
+
+            case "tblRBRLeaveSalChg":
+                return "Unknown + tablename = " + strTableNm;
+
+            case "tblREFPyrPayStatus":
+                return "Status Pembayaran Gaji";
+
+
+            case "tblRBRCOSalAdjsmt":
+                return "Penyelarasan Gaji CO";
+
+            case "tblRBRCOAssmt":
+                return "Penerimaan CO";
+
+            case "tblRBRCOSal":
+                return "Gaji CO";
+
+            case "tblRBRCOConfirm":
+                return "Pengesahan CO";
+
+            case "tblRBRCORemn":
+                return "Unknown + tablename = " + strTableNm;
+
+
+            case "tblREFTrxCatType":
+                return "Jenis Kategori Transaksi";
+
+            case "tblRBRRemnChgMaster":
+                return "Unknown + tablename = " + strTableNm;
+
+            case "tblRBRMemangku":
+                return "Unknown + tablename = " + strTableNm;
+
+            case "tblRBRCover":
+                return "Unknown + tablename = " + strTableNm;
+
+            case "tblRBRCOProgs":
+                return "Kemajuan CO";
+
+            case "tblRBRCODisp":
+                return "Disiplin CO";
+
+
+            case "tblRSCOOfferTerm":
+                return "Syarat Tawaran";
+
+            case "tblRBRNonMoneyBnft":
+                return "Unknown + tablename = " + strTableNm;
+
+            case "tblRBRCSOP":
+                return "Unknown + tablename = " + strTableNm;
+
+            case "tblRBRCOReAssign":
+                return "Tugasan Semula CO";
+
+
+                //********** Jenis Perubahan Kategori ***************    
+
+            case "tblREFTrxSubCatType":
+                return "Jenis Sub-Kategori Transaksi";
+
+            case "tblRBRPyrServTaxSalChgDcsnTbl":
+                return "Unknown + tablename = " + strTableNm;
+
+
+                //********** Jenis Pemetaan HRMIS ***************    
+
+            case "tblREFHrmisMapping":
+                return "Pemetaan HRMIS";
+
+
+                //********** Waktu Pemprosesan ***************    
+
+            case "tblRBRPyrSchd":
+
+                return "Penjadualan Gaji";
+
+            case "tblRBRPyrTrxVoucher":
+                return "Transaksi Baucar";
+
+            case "tblRBRPyrSalChg":
+                return "Perubahan Gaji";
+
+            case "tblRBRPyrCOChgPart":
+                return "Pertukaran Bahagian CO";
+
+            case "tblRBRPyrCOChgServPart":
+                return "Pertukaran Perkhidmatan Bahagian CO";
+
+
+                //********** Status Perubahan Gaji ***************    
+
+            case "tblRBRPyrSalChgDetStatus":
+                return "Status Perubahan Penyelarasan Gaji Terperinci";
+
+            case "tblRBRPyrMthlySalChgStatus":
+                return "Status Perubahan Bulanan Penyelarasan Gaji";
+
+            case "tblRBRPyrSalChgStatus":
+                return "Status Perubahan Penyelarasan Gaji";
+            case "tblRBRPyrMthlySalChgDetStatus":
+                return "Status Perubahan Bulanan Penyelarasan Gaji Terperinci";
+
+
+                //********** Jenis Pembayaran ***************    
+
+            case "tblRBRPyr":
+                return "Pembayaran Gaji (Payroll)";
+
+
+                //********** Status Angkasa ***************    
+
+            case "tblRBRPyrTrxAngkasaStatus":
+                return "Transaksi Status Angkasa";
+
+
+                //********** Status Pembayaran Gaji ***************    
+
+            case "tblREFChangeType":
+                return "Jenis Perubahan";
+
+            case "tblRBRPyrStatus":
+                return "Status Payroll";
+
+                //********** Kumpulan Wang ***************    
+
+            case "tblRBRPyrAccOffBusUnit":
+                return "Pejabat Akaun Unit Organisasi";
+
+
+                //********** Status Sijil Gaji Akhir ***************    ;
+
+            case "tblRBRPyrLPCStatus":
+                return "Unknown + tablename = " + strTableNm;
+
+
+                //********** Kod Perbelanjaan ***************    ;
+
+            case "tblREFObjekSebagai":
+                return "Objek Sebagai";
+
+            case "tblREFObjekKumpulanLanjut":
+                return "Objek Kumpulan Lanjutan";
+
+            case "tblREFObjekAm":
+                return "Objek Am";
+
+            case "tblREFObjekLanjut":
+                return "Objek Lanjutan";
+
+
+                //*************************;
+                //*   SISTEM PENGURUSAN   *;
+                //*************************;
+
+                //********** Maklumat Perakaunan ***************    
+
+            case "tblRBRPyrAccOff":
+                return "Pejabat Perakaunan";
+
+            case "tblRBRPyrCOFinclInfo":
+                return "Maklumat Kewangan CO";
+
+            case "tblRBRPyrAPFinclInfo":
+                return "Maklumat Kewangan AP";
+
+            case "tblRBRPyrPayCtr":
+                return "Pusat Pembayaran";
+
+            case "tblRBRPyrTrxVoucer":
+                return "Transaksi Baucar";
+
+            case "BUPyrPayCtrRel":
+                return "Unknown + tablename = " + strTableNm;
+
+            case "tblRBRPyrTrust":
+                return "Amanah";
+
+            case "tblRBRPyrPTJ":
+                return "Pusat Tanggung Jawab";
+
+            case "tblRBRPyrActivity":
+                return "Aktiviti";
+
+            case "tblRBRPyrPS":
+                return "Projek Setia";
+
+            case "tblRBRPyrPayCtrBranch":
+                return "Cawangan Pusat Pembayaran";
+
+
+                //********** Cukai Pendapatan ***************    ;
+
+            case "tblREFIncTaxSubCat":
+                return "Selenggara Sub-Kategori Cukai Pendapatan";
+
+            case "tblRBRPyrIncTaxDcsnTbl":
+                return "Unknown + tablename = " + strTableNm;
+
+            case "tblRBRPyrIncTaxSalScale":
+                return "Selenggara Tangga Cukai Pendapatan";
+
+            case "tblRBRPyrIncTaxTrx":
+                return "Selenggara Transaksi Cukai Pendapatan";
+
+
+                //********** Kumpulan Wang Simpanan Pekerja ***************    
+
+            case "tblRBRPyrKWSPPctage":
+                return "Kadar Peratus Caruman KWSP";
+            case "tblRBRPyrKWSPScale":
+                return "Tangga Kumpulan Wang Simpanan Pekerja";
+
+
+                //********** SOCSO ***************    ;
+
+            case "tblRBRPyrSOCSOPctage":
+                return "Kadar Peratus SOCSO";
+
+            case "tblRBRPyrSOCSOScale":
+                return "Tangga SOCSO";
+
+
+                //********** Jadual Pengurusan ***************    
+
+            case "ServGrpPyrSchdRel":
+                return "Unknown + tablename = " + strTableNm;
+
+            case "tblRBRPyrSG20Online":
+                return "Selenggara SG20 Dalam Talian";
+
+            case "ApmtStatusPyrSchdRel":
+                return "Unknown + tablename = " + strTableNm;
+
+            case "tblRBRPyrSchdFinclYr":
+                return "Jadual Kewangan Tahunan";
+
+
+                //********** Akaun Bank ***************    ;
+
+            case "tblPRAcc":
+                return "Unknown + tablename = " + strTableNm;
+
+            case "tblRBRCLCheque":
+                return "Unknown + tablename = " + strTableNm;
+
+
+                //*************************;
+                //*   JADUAL PENENTUAN    *;
+                //*************************;
+
+            case "tblRBRPyrChildDcsnTbl":
+                return "Unknown + tablename = " + strTableNm;
+
+
+                //**************************;
+                //* POTONGAN TIDAK WAJIB   *;
+                //**************************
+
+            case "tblRBRNsAppHis":
+                return "Unknown + tablename = " + strTableNm;
+
+            case "tblRBRNsdTrxApp":
+                return "Unknown + tablename = " + strTableNm;
+            case "tblRBRNsdApp":
+                return "Unknown + tablename = " + strTableNm;
+
+
+            case "tblRBRNsAppHisStatus":
+                return "Unknown + tablename = " + strTableNm;
+
+            case "tblRBRNsdTrxAppStatus":
+                return "Unknown + tablename = " + strTableNm;
+
+            case "tblRBRNsdAppStatus":
+                return "Unknown + tablename = " + strTableNm;
+
+
+            case "tblRBRNsAppHisDoc":
+                return "Unknown + tablename = " + strTableNm;
+
+            case "tblRBRNsdTrxAppDoc":
+                return "Unknown + tablename = " + strTableNm;
+
+            case "tblRBRNsdAppDoc":
+                return "Unknown + tablename = " + strTableNm;
+
+
+                //**********************************;
+                //* TUNTUTAN GAJI TERLEBIH BAYAR   *;
+                //**********************************;
+
+            case "tblREFCSOPRepayMtd":
+                return "Kaedah Pembayaran Balik";
+
+            case "tblREFCSOPSubRepayMtd":
+                return "Sub-Kaedah Pembayaran Balik";
+
+            case "tblRBRCSOPTrsrySchd":
+                return "Unknown + tablename = " + strTableNm;
+
+            case "tblREFCSOPTrxCancel":
+                return "Pembatalan Transaksi CSOP";
+
+            case "tblRBRCSOPPrepareLetter":
+                return "Penyediaan Surat";
+
+            case "tblRBRCSOPDctnSchd":
+                return "Jadual Potongan";
+
+
+                //**********************************;
+                //*    TUNTUTAN BAYARAN BALIK      *;
+                //**********************************;
+
+            case "tblRBRCLPrepLetterStatus":
+                return "Status Penyediaan Surat Tuntutan Bayaran Balik";
+
+            case "tblRBRSARlsRcvAgcy":
+                return "Unknown + tablename = " + strTableNm;
+
+            case "tblRBRCLRlsRcvAgcy":
+                return "Unknown + tablename = " + strTableNm;
+
+
+                //**********************************;
+                //*   MENGEMUKAKAN JURNAL          *;
+                //**********************************;
+
+            case "tblRBRSAJournalStatus":
+                return "Status Jurnal";
+
+            case "tblRBRSAJournalDet":
+                return "Jurnal Terperinci";
+
+            case "tblRBRSAJournalLetter":
+                return "Surat Jurnal";
+
+            case "tblRBRSAJournal":
+                return "Jurnal";
+
+
+                //************** End Case-Select *************;
+        }
+
+    } else {
+        //****************** English Version ***********;
+        return strTableNm;
+    }
+}
+
+//***********************************************************
+//function : To get the no of days in a month of  a year{
+//Author  : Kalyan
+//Date     : 09/09/2002
+//***********************************************************
+function GetNoOfDays(nMonth, nYear) {
+    if (nMonth.trim() === "1" || nMonth.trim() == "01" || nMonth.trim() == "03" || nMonth.trim() == "3" || nMonth.trim() == "5" || nMonth.trim() == "05" || nMonth.trim() == "07" || nMonth.trim() == "7" || nMonth.trim() == "08" || nMonth.trim() == "8" || nMonth.trim() == "10" || nMonth.trim() == "12") {
+        return 31;
+    } else if (nMonth.trim() === "2" || nMonth.trim() === "02".trim()) {
+        if (nYear % 4 === 0) { //Leap Year checking;
+            return 29;
+        } else {
+            return 28;
+        }
+    } else {
+        return 30;
+    }
+}
+
+
+//***********************************************************
+//function : To check special char{
+//Author  : halim
+//Date     : 23/02/2006
+//***********************************************************
+function CheckToURLEncode(strVal) {
+    if (strVal.trim().length > 0) {
+        return URLEncode(strVal);
+    } else {
+        return strVal;
+    }
+}
+
+if (typeof (String.prototype.trim) === "undefined") {
+    String.prototype.trim = function () {
+        return String(this).replace(/^\s+|\s+$/g, '');
+    };
+}
+
+function cbfEncrypt(strValue) {
+    window.onerror = null;
+    var varX, tmpVal, intLen;
+    tmpVal = "";
+    strValue = strValue.trim();
+    if (strValue !== "") {
+        if (strValue.substr(-1) !== String.fromCharCode(230)) {
+            intLen = strValue.length;
+            for (var intCount = 0; intCount < intLen; intCount++) {
+                varX = strValue.substr(intCount, 1);
+                switch (varX.charCodeAt(0) + 1) {
+                    case 33:
+                        tmpVal = tmpVal + String.fromCharCode(222); //space change to String.fromCharCode(222)
+                        break;
+                    case 34:
+                        tmpVal = tmpVal + String.fromCharCode(238); //(!) change to String.fromCharCode(238) --ENC
+                        break;
+                    case 38:
+                        tmpVal = tmpVal + String.fromCharCode(233); //change String.fromCharCode(38) to String.fromCharCode(233)
+                        break;
+                    case 39:
+                        tmpVal = tmpVal + String.fromCharCode(38);//(+) ! change
+                        break;
+                    case 43:
+                        tmpVal = tmpVal + String.fromCharCode(237);//change String.fromCharCode(43) to String.fromCharCode(237) 
+                        break;
+                    case 46: tmpVal = tmpVal + String.fromCharCode(234); //change String.fromCharCode(46) to String.fromCharCode(234) 
+                        break;
+                    case 47: tmpVal = tmpVal + String.fromCharCode(46); //(.) ! change
+                        break;
+                    case 59: tmpVal = tmpVal + String.fromCharCode(235); //change String.fromCharCode(59) to String.fromCharCode(235)  
+                        break;
+                    case 60: tmpVal = tmpVal + String.fromCharCode(59);//(;) ! change
+                        break;
+                    case 61: tmpVal = tmpVal + String.fromCharCode(236); //change String.fromCharCode(61) to String.fromCharCode(236) 
+                        break;
+                    case 62: tmpVal = tmpVal + String.fromCharCode(61);//(=) ! change
+                        break;
+                    default: tmpVal = tmpVal + String.fromCharCode(varX.charCodeAt(0) + 1);
+                        break;
+                }
+            }
+
+            return tmpVal.split("").reverse().join("") + String.fromCharCode(230);
+        } else {
+            return strValue();
+        }
+    } else {
+        return "";
+    }
+    //return strValue;
+}
+
+function cbfDecrypt(strValue) {
+    window.onerror = null;
+    var varX, tmpVal, intLen;
+    tmpVal = "";
+    strValue = strValue.trim();
+    if (strValue.substr(-1) === String.fromCharCode(230)) {
+        strValue = strValue.substr(strValue.length - 1);
+        strValue = strValue.split("").reverse().join("");
+        intLen = strValue.length;
+        for (var intCount = 0; intCount < intLen; intCount++) {
+            varX = strValue.substr(intCount, 1);
+            switch (String.fromCharCode(varX)) {
+                case 222:
+                    mpVal = tmpVal + String.fromCharCode(32); //change String.fromCharCode(222) to space
+                    break;
+                case 238:
+                    tmpVal = tmpVal + String.fromCharCode(33);//change String.fromCharCode(238) to String.fromCharCode(33)--DEC
+                    break;
+                case 233:
+                    tmpVal = tmpVal + String.fromCharCode(37);//change String.fromCharCode(233) to String.fromCharCode(37)  
+                    break;
+                case 38:
+                    tmpVal = tmpVal + String.fromCharCode(38); //(+)  ; ! change  
+                    break;
+                case 237:
+                    tmpVal = tmpVal + String.fromCharCode(42); //change String.fromCharCode(237)  ; to String.fromCharCode(42)  ;  
+                    break;
+                case 234:
+                    tmpVal = tmpVal + String.fromCharCode(45); //change String.fromCharCode(234)  ; to String.fromCharCode(45)  ;  
+                    break;
+                case 46:
+                    tmpVal = tmpVal + String.fromCharCode(46); //(.)  ; ! change   
+                    break;
+                case 235:
+                    tmpVal = tmpVal + String.fromCharCode(58); //change String.fromCharCode(235)  ; to String.fromCharCode(58)  ;  
+                    break;
+                case 59: tmpVal = tmpVal + String.fromCharCode(59); //(;)  ; ! change    
+                    break;
+                case 236:
+                    tmpVal = tmpVal + String.fromCharCode(60); //change String.fromCharCode(236)  ; to String.fromCharCode(60)  ;  
+                    break;
+                case 61:
+                    tmpVal = tmpVal + String.fromCharCode(61); //(=) ! change  
+                    break;
+                default:
+                    tmpVal = tmpVal + String.fromCharCode(varX.charCodeAt(0) - 1);
+                    break;
+            }
+        }
+
+        return tmpVal.trim();
+    } else {
+        return strValue.trim();
+    }
+    //return strValue;
+
+}
+
+function cbfNumberValidation(strParValue) {
+
+    return /^[0-9]$/i.test(window.event.key);
+
+    window.onerror = null;
+    var intDummy, intKeyCode;
+    var strDummy;
+    var blnPass;
+
+    blnPass = true;
+
+    intKeyCode = window.event.keyCode;
+
+    if ((parseInt(intKeyCode, 10) < parseInt(96, 10) || parseInt(intKeyCode, 10) > parseInt(105, 10))) {
+        if (parseInt(intKeyCode, 10) !== parseInt(8, 10) && parseInt(intKeyCode, 10) !== parseInt(9, 10) && parseInt(intKeyCode, 10) !== parseInt(13, 10) && parseInt(intKeyCode, 10) !== parseInt(37, 10) && parseInt(intKeyCode, 10) !== parseInt(39, 10)) {
+            strDummy = strParValue + String.fromCharCode(intKeyCode);
+            intDummy = parseInt(strDummy, 16);
+
+            if (parseInt(err.number, 10) !== 0) {
+                window.event.returnValue = False;
+                blnPass = False;
+            } else {
+                if (window.event.shiftKey !== "0") {
+                    window.event.returnValue = False;
+                    blnPass = false;
+                }
+            }
+        }
+    }
+
+    return blnPass;
+}
+function cbfChangeColor(strColor, strFontCtrId) {
+    window.onerror = null;
+    if (strFontCtrId !== strPrevSelMenuId) {
+        document.all.item(strFontCtrId).color = strColor;
+    }
+}
+
+function cbfChangeColor2(strFontID, strFontColor, blnULine, blnBold) {
+    window.onerror = null;
+    if (strFontID !== strPrevSelMenuId) {
+        document.all.item(strFontID).color = strFontColor;
+        document.all.item(strFontID).style.textDecorationUnderline = Boolean(blnULine);
+        if (blnBold !== "0") {
+            document.all.item(strFontID).style.fontWeight = "bold";
+        } else {
+            document.all.item(strFontID).style.fontWeight = "normal";
+        }
+    }
+}
+
+
+function WrongDtFormat() {
+    if (language == "BM") {
+        alert("Format Tarikh Salah!"); // ,vbExclamation,BoxTitle);
+    } else {
+        alert("Wrong Date Format!"); // ,vbExclamation,BoxTitle);
+    }
+
+}
+
+function cbfCombine(strASPName, strTarget, strStyle, strFontCtrId) {
+    cbfChangeItalic(strStyle, strFontCtrId);
+    parent.frames[strTarget].location.href = strASPName;
+}
+
+function cbfChangeItalic(strStyle, strFontCtrId) {
+    window.onerror = null;
+    if (strPrevSelMenuId)
+    {
+        document.all.item(strPrevSelMenuId).style.fontstyle = "normal";
+        document.all.item(strPrevSelMenuId).style.fontWeight = "normal";
+        document.all.item(strPrevSelMenuId).color = "#ffffff";
+    }
+    if (strFontCtrId)
+    {
+        document.all.item(strFontCtrId).style.fontstyle = strStyle;
+        document.all.item(strFontCtrId).style.fontWeight = "bold";
+        document.all.item(strFontCtrId).color = "#FFFF00";
+        strPrevSelMenuId = strFontCtrId;
+    }
+}
+
+function ReFormatMoney(prmValue) {
+    //valid_Money_noFormat(prmValue);
+    if (!isnumeric(prmValue.value)) {
+        alert(ErrNum);
+        return "0.00";
+    }
+
+    return ((parseFloat(prmValue.value).toFixed(2)) + "").replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
+
+    //if (prmValue.value.length === 0) {
+    //    prmValue.value = 0;
+    //}
+    //prmValue.value = prmValue.value.toFixed(2);
+
+    //return prmValue.value;
+}
+function cbfSubmitLink1(strASPName, strTarget) {
+    if (strTarget.length > 0) {
+        strTarget = strTarget.trim();
+        if (strTarget === "_self" || strTarget === "_self") {
+            self.location.href = strASPName;
+        } else if (strTarget === "mainright" || strTarget === "_parent" || strTarget === "parent") {
+            parent.location.href = strASPName;
+        } else {
+            parent.frames[strTarget].location.href = strASPName;
+        }
+    } else {
+        self.location.href = strASPName;
+    }
+}
+function cbfSubmitLink(strASPName, strTarget) {
+    if (strTarget.length > 0) {
+        strTarget = strTarget.trim();
+        if (strTarget === "_self" || strTarget === "_self") {
+            self.location.href = strASPName;
+        } else if (strTarget === "mainright" || strTarget === "_parent" || strTarget === "parent") {
+            parent.location.href = strASPName;
+        } else {
+            parent.frames[strTarget].location.href = strASPName;
+        }
+    } else {
+        self.location.href = strASPName;
+    }
+}
+
+function cbfDisableEnableButton(idButton, action) {
+    //document.getElementById(idButton).disabled = action;
+}
+
+function MsgBox_Mandatory(incMessage) {
+    switch (language) {
+        case "BM":
+            incMsgMdtr01 = "Maklumat Mandatori Perlu Diisi :";
+            incMsgMdtr02 = "Sila Isi.";
+            break;
+        case "BI":
+            incMsgMdtr01 = "Mandatory Field(s) Should Be Filled :";
+            incMsgMdtr02 = "Please Fill.";
+            break;
+    }
+
+    if (incMessage !== "") {
+        strDispMsg = "____________________________" + '\r\n';
+        strDispMsg = strDispMsg + incMsgMdtr01 + '\r\n';
+
+        incMessage = strDispMsg + incMessage + '\r\n' + "____________________________" + '\r\n\r\n';
+        incMessage = incMessage + '\r\n' + incMsgMdtr02;
+
+        alert(incMessage); // , 1Only, BoxTitle);
+        return false;
+    } else {
+        return true;
+    }
+}
+
+//FOR SINGLE TEXTBOX...
+function check_Money(strText) {
+    okey = isMoney(strText);
+    if (okey === 1) {
+        alert(ErrDbl);
+    }
+    else if (okey === 2) {
+        alert(ErrDot);
+    }
+
+    if (strText.value !== "") {
+        strText.value = parseFloat(strText.value.toFixed(2)).replace(",", "");
+    }
+}
+
+
+//function USED TO TEST INTEGER && DOT (.){
+function isMoney(number) {
+    lenCount = number.value.toString().length;
+
+    if (lenCount > 0)
+    {
+        var regex = /^\$?((\d{1,3})(?:,[0-9]{3}){0,1}|(\d{1})(?:,[0-9]{3}){0,2}|(\d{1,7}))(\.\d{1,2})?$/g;
+        return regex.test(number.value) ? 0 : 1;
+    }
+
+    return 0;
+
+    //""""""""""""""" CHECK FOR HOW MANY DOTS """""""""""""""""""""";
+    dotFound = 0;
+    for (var myNum = 1 ; myNum < lenCount ; lenCount++) {
+        temp = number.value.substr(myNum, 1);
+        if (String.fromCharCode(temp) === 46) {
+            dotFound = dotFound + 1;
+
+            if (parseInt(dotFound, 10) > 1) {
+                newVal = number.value.substr(1, myNum - 1);
+                number.value = "";
+                return 2;
+            }
+        }
+    }
+
+
+
+    //""""""""""""""" CHECK FOR NUMERIC && DOT ONLY """"""""""""""""";
+    for (myNum = 1 ; myNum < lenCount ; lenCount++) {
+        temp = number.value.substr(myNum, 1);
+        if (String.fromCharCode(temp) < 48 || String.fromCharCode(temp) > 57) {
+            if (String.fromCharCode(temp) !== 46) {
+                newVal = number.value.substr(1, myNum - 1);
+                number.value = "";
+                return 1;
+            }
+        }
+    }
+    return 0;
+}
+
+
+//21/05/2010 - Zid add this function....
+function ProcRptTrans(NewGUID, arrBUID) {
+
+    //************************************************************************;
+    //First method: Childnodes;
+
+    strXML = "<?xml version='1.0'?>";
+    strXML = strXML + "<DATA>";
+    strXML = strXML + "<LISTDATA>" + String.fromCharCode(10);
+    strXML = strXML + " <GUID><![CDATA[" + NewGUID + "]]></GUID>" + String.fromCharCode(10);
+    strXML = strXML + " <BUID><![CDATA[" + arrBUID.replace("]]>", "*@CDATA*") + "]]></BUID>" + String.fromCharCode(10);
+    strXML = strXML + "</LISTDATA>" + String.fromCharCode(10);
+    strXML = strXML + "</DATA>";
+
+    //alert strXML;
+    //************************************************************************
+
+    ErrxmlDoc = CreateObject("Microsoft.XMLDOM");
+    ErrxmlDoc.async = false;
+
+    ErrxmlDoc.LoadXML(strXML);
+    if (ErrxmlDoc.ParseError !== 0) {
+        alert(ErrxmlDoc.ParseError.Reason);
+    }
+
+    strAspfile = "/HRMISNET/Common/include/RptTransProc.aspx";
+
+    XMLHTTP = CreateObject("Microsoft.XMLHTTP");
+    XMLHTTP.OPEN("POST", strAspfile, false);
+    XMLHTTP.SEND(ErrxmlDoc);
+
+    XMLHTTP = null;
+    ErrxmlDoc = null;
+}
+
+
+// Fix JS String.trim() function is unavailable in IE<9 #45 
+
+function trim(vstr)
+{
+    return vstr.trim();
+}
+
+if (typeof (String.prototype.trim) === "undefined")
+{
+    String.prototype.trim = function ()
+    {
+        return String(this).replace(/^\s+|\s+$/g, '');
+    }
+}
+
+//Add By Sairel - Javascript Conversion
+function Mid(str, start, len) {
+
+    if (start < 0 || len < 0) return "";
+
+    var iEnd, iLen = String(str).length;
+    if (start + len > iLen)
+        iEnd = iLen;
+    else
+        iEnd = start + len;
+
+    return String(str).substring(start - 1, iEnd - 1);
+}
+
+function Left(str, n)
+/***
+str - the string we are LEFTing
+n - the number of characters we want to return
+
+RETVAL: n characters from the left side of the string
+***/
+{
+    if (n <= 0)     // Invalid bound, return blank string
+        return "";
+    else if (n > String(str).length)   // Invalid bound, return entire string
+        return str;
+    else // Valid bound, return appropriate substring
+        return String(str).substring(0, n);
+}
+
+function Right(str, n) {
+    if (n <= 0)
+        return "";
+    else if (n > String(str).length)
+        return str;
+    else {
+        var iLen = String(str).length;
+        return String(str).substring(iLen, iLen - n);
+    }
+}
+
+function FormatNumber(n, decimalNum) {
+    n += '';
+    x = n.split('.');
+    x1 = x[0];
+    x2 = x.length > 1 ? '.' + x[1] : '';
+
+    var r = /(\d+)(\d{3})/;
+
+    while (r.test(x1)) {
+        x1 = x1.replace(r, '$1' + ',' + '$2');
+    }
+
+    x2 = Number(x2).toFixed(decimalNum);
+
+    return x1 + x2.substr(1);
+}
+
+
+function datediff(typedate, date1, date2) {
+    //var typediff = "days";
+
+    switch (typedate) {
+        case "d":
+            typediff = "days";
+            break;
+        case "m":
+            typediff = "months";
+            break;
+        case "y":
+            typediff = "years";
+            break;
+        default:
+    }
+    strDIFF = (moment(date2)).diff((moment(date1)), typediff);
+    typedate = "";
+    return strDIFF;
+}
+
+function dateadd(typedate, date1, date2) {
+
+    if (typedate == "d") {
+        typediff = "days";
+    } else if (typedate == "m") {
+        typediff = "months";
+    } else {
+        typediff = "years";
+    }
+
+    date2 = moment(date2, 'DD/MM/YYYY');
+    strDIFF = moment(date2).add(typediff, date1);
+
+    return moment(strDIFF).format('DD/MM/YYYY');
+}

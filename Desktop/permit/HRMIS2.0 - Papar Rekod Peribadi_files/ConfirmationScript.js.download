@@ -1,0 +1,29 @@
+﻿/*
+'****************************************************************
+' Please record any modifications made to this asp file in the table below:
+'======================================================================================
+' HRMIS				HISTORY OF THIS SCRIPT FILE			 
+'======================================================================================
+' Name (Programmer):			' Date Modified:	' Remarks:							                                        'Log No:'
+'----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+' 1) Abdullah				' 18/11/2013		' + change SureTo concept to confirm                                                        '+ Multibrowser Migration     '
+'-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+*/
+function ConfirmationMessage(idMe, processType)
+{
+    var obj;
+    var blnAnswer;
+    switch (processType)
+    {
+        case "save": blnAnswer = SureTo(processType);break;
+        case "add": blnAnswer = SureTo(processType);break;
+        case "update": blnAnswer = SureTo(processType);break;
+        case "submit": blnAnswer = SureTo(processType);break;
+        case "delete": blnAnswer = SureTo(processType);break;
+        case "reset": blnAnswer = SureTo(processType);break;
+        case "exit": blnAnswer = Confirm_Exit(); break;
+        case "cancel": blnAnswer = Confirm_Exit(); break;
+        default:return false;
+   }
+    return blnAnswer;
+}

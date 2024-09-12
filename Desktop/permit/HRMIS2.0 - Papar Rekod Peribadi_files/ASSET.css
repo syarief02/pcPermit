@@ -1,0 +1,491 @@
+.card-profil {
+    /*box-shadow: 2px 4px 8px 0 rgba(0, 0, 0, 0.2);*/
+    max-width: 100%;
+    margin-left: 30px; /*margin: auto;*/
+    margin-right: 30px; /*margin: auto;*/
+    text-align: left;
+    font-size: 10pt;
+    text-transform: capitalize;
+    font-family: arial, helvetica, sans-serif;
+    height: 90%;
+    padding: 10px;
+    /*border-radius: 15px;*/
+    border: none;
+}
+
+.card-profil2 {
+    box-shadow: 2px 4px 8px 0 rgba(0, 0, 0, 0.2);
+    max-width: 100%;
+    margin-left: 30px; /*margin: auto;*/
+    margin-right: 30px; /*margin: auto;*/
+    text-align: left;
+    font-size: 10pt;
+    font-weight : bold;
+    font-style : italic;
+    text-transform: capitalize;
+    font-family: arial, helvetica, sans-serif;
+    height: 90%;
+    padding: 10px;
+    border-radius: 15px;
+    border: none;
+}
+
+.btnMP {
+    display: inline-block;
+    padding: 6px 9px;
+    margin-bottom: 0;
+    font-size: 12px;
+    font-weight: 300;
+    line-height: 1.42857143;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-image: none;
+    border: 1px solid transparent;
+}
+
+.btnMP-primary {
+    color: #fff;
+    background-color: #3c8dbc;
+    border-color: #2e6da4;
+}
+
+.AHref
+{
+    font-size: 24px;
+    font-weight: bold;
+    cursor: pointer;
+    color: #1831f2;
+    font-family: arial, helvetica, sans-serif;
+    text-decoration: underline;
+}
+
+.tooltip2 {
+          position: relative;
+          display: inline-block;
+        }
+
+        .tooltip2 .tooltiptext {
+          visibility: hidden;
+          width: 300px;
+          background-color: #EBF5FB;
+          color: #000000;
+          text-align: center;
+          border-radius: 5px;
+          padding: 5px 0;
+          position: absolute;
+          z-index: 1;
+          top: -5px;
+          left: 150%;
+          margin-left: -60px;
+          opacity: 0;
+          transition: opacity 1s;
+        }
+
+        .tooltip2:hover .tooltiptext {
+          visibility: visible;
+          opacity: 1;
+        }
+
+.table-user > tbody > tr {
+    border-top: 0px solid rgb(221, 221, 221);
+}
+
+    .table-user > tbody > tr:first-child {
+        border-top: 0;
+    }
+
+    .table-user > tbody > tr > td {
+        border-top: 0;
+    }
+
+.btn span.glyphicon {
+    opacity: 0;
+}
+
+.btn.active span.glyphicon {
+    opacity: 1;
+}
+
+.tooltip, .arrow:after {
+    background: #2ebbfc;
+    border: 2px solid black;
+}
+
+.tooltip {
+    margin: 50px;
+    width: 300px;
+    height: 40px;
+    pointer-events: none;
+    opacity: 0;
+    display: inline-block;
+    position: absolute;
+    padding: 10px 20px;
+    color: white;
+    border-radius: 10px;
+    margin-top: 20px;
+    text-align: center;
+    font: bold 14px "Arial";
+    font-stretch: condensed;
+    text-decoration: none;
+    text-transform: none;
+    box-shadow: 0 0 5px;
+}
+
+.arrow {
+    width: 70px;
+    height: 16px;
+    overflow: hidden;
+    position: absolute;
+    left: 36%;
+    margin-left: -35px;
+    bottom: -16px;
+}
+
+    .arrow:after {
+        content: "";
+        position: absolute;
+        left: 20px;
+        top: -20px;
+        width: 25px;
+        height: 25px;
+        -webkit-box-shadow: 6px 5px 9px -9px black, 5px 6px 9px -9px black;
+        -moz-box-shadow: 6px 5px 9px -9px black, 5px 6px 9px -9px black;
+        box-shadow: 6px 5px 9px -9px black, 5px 6px 9px -9px black;
+        -webkit-transform: rotate(45deg);
+        -moz-transform: rotate(45deg);
+        -ms-transform: rotate(45deg);
+        -o-transform: rotate(45deg);
+    }
+
+.tooltip.active {
+    opacity: 1;
+    margin-top: -1px;
+    -webkit-transition: all 0.2s ease;
+    -moz-transition: all 0.2s ease;
+    -ms-transition: all 0.2s ease;
+    -o-transition: all 0.2s ease;
+}
+
+.tooltip.out {
+    opacity: 0;
+    margin-top: -20px;
+}
+
+.trHeaderAF {
+    height: 33px;
+}
+
+.tableAF {
+    border-collapse: collapse;
+    border-radius: 0.5em;
+    overflow: hidden;
+}
+
+.tableAF, .th, .td {
+    padding: 1em;
+    background: #a1e0f3;
+}
+
+.headerMP {
+    font-weight: bold;
+    font-size: 12px;
+    text-transform: uppercase;
+    color: #ffffff;
+    font-family: arial, helvetica, sans-serif;
+    height: 30px;
+    background-color: #2ebbfc;
+    /*border-radius: 0.5em;*/
+}
+
+.headerNM {
+    font-weight: bold;
+    font-size: 12px;
+    text-transform: uppercase;
+    color: black;
+    font-family: arial, helvetica, sans-serif;
+    height: 30px;
+    background-color: #ffffff;
+    /*border-radius: 0.5em;*/
+    border: solid black 1px;
+}
+.headerNMP {
+    font-weight: bold;
+    font-size: 12px;
+    text-transform: uppercase;
+    color: #FFFF00;
+    font-family: arial, helvetica, sans-serif;
+    height: 30px;
+    background-color: #2ebbfc; /*#21618C*/
+    /*border-radius: 0.5em;*/
+    border: solid black 1px;
+}
+.nameRED {
+    font-weight: bold;
+    font-size: 12px;
+    text-transform: uppercase;
+    color: #FF0000;
+    font-family: arial, helvetica, sans-serif;
+    height: 30px;
+
+}
+.scrollbar {
+    float: left;
+    height: 500px;
+    width: 100%;
+    overflow-y: scroll;
+}
+
+.scrollbar1 {
+    float: left;
+    height: 100px;
+    width: 100%;
+    overflow-y: scroll;
+}
+
+.scrollbar2 {
+    float: left;
+    height: 400px;
+    width: 100%;
+    overflow-y: scroll;
+}
+
+.scrollbar3 {
+    float: left;
+    height: 300px;
+    width: 100%;
+    overflow-y: scroll;
+}
+
+#style-10::-webkit-scrollbar {
+    width: 7px;
+}
+
+#data, #dataLulus {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: small;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+    #data td, #data th, #dataLulus td, #dataLulus th {
+        border: 1px solid #ddd;
+        padding: 3px;
+    }
+
+#tblHantar td {
+    border: 0px solid #ddd;
+    padding: 3px;
+}
+
+#dataSemakan td, #dataPengesahan td {
+    border: 0px solid #ddd;
+    padding: 3px;
+}
+
+#data tr:nth-child(even), #dataLulus tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+#data tr:hover, #dataLulus tr:hover {
+    /*background-color: #ddd;*/
+}
+
+#data th {
+    padding-top: 4px;
+    padding-bottom: 4px;
+    text-align: left;
+    background-color: #4CAF50;
+    color: white;
+}
+
+#dataLulus th {
+    padding-top: 4px;
+    padding-bottom: 4px;
+    text-align: left;
+    background-color: lightblue;
+    color: black;
+}
+
+.shadow-textarea textarea.form-control {
+    padding-left: 0.8rem;
+}
+
+body {
+    font-family: Arial;
+}
+
+/* Style the tab */
+.tab {
+    overflow: hidden;
+    border: thin #808080 1px;
+    background-color: #D6EAF8; /*light blue*/
+    border-radius: 0.5em;
+}
+.tab2 {
+    overflow: hidden;
+    border: thin #808080 1px;
+    background-color: #cccecf; /*light grey*/
+    border-radius: 0em;
+}
+    /* Style the buttons inside the tab */
+    .tab button {
+        background-color: inherit;
+        float: left;
+        border: solid #808080 1px;
+        outline: none;
+        cursor: pointer;
+        padding: 8px 10px;
+        transition: 0.3s;
+        font-size: 12px;
+        color: #000000; 
+    }
+    .tab2 button, .tab3 button {
+        background-color: inherit;
+        float: left;
+        border: solid #000000 1px;
+        outline: none;
+        cursor: pointer;
+        padding: 1px 1px;
+        transition: 0.3s;
+        font-size: 10px;
+        color: #FFFFFF; 
+    }
+
+        /* Change background color of buttons on hover 
+        .tab button:hover {
+            background-color: #000000; 
+            color: #000000; 
+        }*/
+        /* Create an active/current tablink class */
+        .tab button.active, .tab button.active2, .tab button.active3 {
+            background-color: #21618C; /*blue*/
+            color: #FFFF00; /*yellow*/
+        }
+        /* Change background color of buttons on hover */
+        .tab button.noactive {
+            background-color: #D6EAF8;
+            color: #000000; /*black*/
+        }
+        .tab2 button.active {
+            background-color: #9A9C9E; /*grey*/
+            color: #FFFF00; /*yellow*/
+        }
+        /* Change background color of buttons on hover */
+        .tab2 button.noactive {
+            background-color: #CCCECF; /*light grey*/
+            color: #FFFFFF; /*white*/
+        }
+        .tab3 button.active, .tab3 button.noactive {
+            background-color: #9A9C9E; /*grey*/
+            color: #FFFF00; /*yellow*/
+        }
+/* Style the tab content */
+.tabcontent {
+    display: none;
+    padding: 6px 12px;
+    border: 1px solid #ccc;
+    border-top: none;
+}
+
+.tablinks {
+    width: 50%;
+}
+
+.tablinks1 {
+    width: 33.33%;
+    font-size: 12px;
+}
+
+.tablinks2 {
+    width: 50%;
+    font-size: 12px;
+}
+
+.tablinks4 {
+    width: 25%;
+    font-size: 12px;
+}
+
+.form-checkbox {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    display: inline-block;
+    position: relative;
+    background-color: #2196F3;
+    color: white;
+    height: 20px;
+    width: 20px;
+    border: 0;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-right: 7px;
+    outline: none;
+}
+
+    .form-checkbox:checked::before {
+        position: absolute;
+        font: 13px/1 'Open Sans', sans-serif;
+        left: 7px;
+        top: 3px;
+        content: '\02143';
+        transform: rotate(40deg);
+    }
+
+    .form-checkbox:hover {
+        background-color: white;
+    }
+
+    .form-checkbox:checked {
+        background-color: green;
+    }
+
+.footerX {
+    position: absolute;
+    bottom: 0;
+    width: 98%;
+    height: 5%;
+    border-style: none;
+}
+
+.WrapStyle TD
+{
+    word-break: break-all;
+}
+.resultheaderMP 
+{
+    BORDER-RIGHT: black 0.1pt;
+    BORDER-TOP: black 0.1pt;
+    FONT-WEIGHT: bold;
+    FONT-SIZE: 12px;
+    TEXT-TRANSFORM: capitalize;
+    BORDER-LEFT: black 0.1pt;
+    BORDER-BOTTOM: black 0.1pt;
+    FONT-FAMILY: Arial, helvetica, sans-serif;
+    BACKGROUND-COLOR: #999999;
+    TEXT-ALIGN: center;
+    color:Black;
+}
+
+.button {
+    display: inline-block;
+    width: 100%; /* set to 100% */
+    height: 100%; /* set to 100% */
+    margin-bottom: 0.5em;
+    padding-top: .6em;
+    padding-bottom: .6em;
+    color: #fff;
+    background-color: #3c8dbc;
+    border-radius: 5px;
+    border: solid #cccccc 1px;
+    clear: right;
+    float: right;
+}
